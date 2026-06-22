@@ -201,20 +201,12 @@
   </ul>
 </div>
 
-<!-- VALIDATIE -->
-<div class="callout callout-tip">
-  <div class="callout-header">🔎 <span class="lang-block active" data-lang="nl">Openstaande validatiepunten</span><span class="lang-block" data-lang="fr">Points à valider</span><span class="lang-block" data-lang="en">Open validation points</span></div>
-  <p><span class="lang-block active" data-lang="nl">Fig. 1.1 en 1.2 zijn beelden van Dominique Lachiver (FreeCAD 1.1, Franse interface, CC BY-SA 4.0). Ze kunnen later vervangen worden door eigen Nederlandstalige 1.1.1-captures (light + Gesture). Het exacte menulabel "Over FreeCAD / About FreeCAD" wordt nog tegen de NL-1.1.1-interface bevestigd.</span>
-  <span class="lang-block" data-lang="fr">Les fig. 1.1 et 1.2 proviennent de Dominique Lachiver (FreeCAD 1.1, FR, CC BY-SA 4.0) ; elles pourront être remplacées par nos propres captures 1.1.1. Le libellé exact du menu « À propos » reste à confirmer.</span>
-  <span class="lang-block" data-lang="en">Fig. 1.1 and 1.2 are by Dominique Lachiver (FreeCAD 1.1, FR, CC BY-SA 4.0); they may later be replaced by our own 1.1.1 captures. The exact "About FreeCAD" menu label is to be confirmed.</span></p>
-</div>
-
 <!-- COMPLETE + NAV -->
 <div class="complete-area" style="text-align:center;margin:34px 0 10px">
   <button id="btn-complete" class="btn btn-complete" data-chid="h01">✓ Markeer als voltooid</button>
 </div>
 <div class="chapter-nav-footer">
-  <span class="ch-nav-btn disabled" style="opacity:.4;pointer-events:none">← <span data-i18n="prev">Vorige</span></span>
+  <a class="ch-nav-btn" href="../index.html"><span data-i18n="prev">← Vorige</span></a>
   <a class="ch-nav-btn" href="h02-eerste-start.html"><span data-i18n="next">Volgende →</span></a>
 </div>
 
@@ -230,12 +222,7 @@
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/sidebar.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
-  try{ const s=JSON.parse(localStorage.getItem('freecad_cursus'));
-    if(s?.callsign) document.getElementById('hCallsign').textContent=s.callsign;
-    if(!s?.callsign) window.location.href='../login.html'; }catch{}
-  renderSidebar('h01');
-});
+document.addEventListener('DOMContentLoaded',()=>{ renderSidebar('h01'); });
 </script>
 </body>
 </html>

@@ -143,11 +143,6 @@
 <script src="assets/js/sidebar.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  try {
-    const s = JSON.parse(localStorage.getItem('freecad_cursus'));
-    if (s?.callsign) document.getElementById('hCallsign').textContent = s.callsign;
-    if (!s?.callsign) window.location.href = 'login.html';
-  } catch {}
   renderSidebar(null);
   buildChapterGrid();
 });
@@ -175,7 +170,7 @@ function buildChapterGrid() {
 
   const CARD_DATA = [
     {deel:1,id:'h01',badge:'basis',full:true,desc:{nl:'Wat FreeCAD is, waarom parametrisch, en 1.1.1 installeren.',fr:'Ce qu\'est FreeCAD, pourquoi paramétrique, et installer 1.1.1.',en:'What FreeCAD is, why parametric, and installing 1.1.1.'}},
-    {deel:1,id:'h02',badge:'basis',full:false,desc:{nl:'Voorkeuren (taal/eenheden/thema) en je navigatiestijl kiezen.',fr:'Préférences (langue/unités/thème) et choisir la navigation.',en:'Preferences (language/units/theme) and choosing navigation.'}},
+    {deel:1,id:'h02',badge:'basis',full:true,desc:{nl:'Voorkeuren (taal/eenheden/thema) en je navigatiestijl kiezen.',fr:'Préférences (langue/unités/thème) et choisir la navigation.',en:'Preferences (language/units/theme) and choosing navigation.'}},
     {deel:1,id:'h03',badge:'basis',full:false,desc:{nl:'Roteren, pannen, zoomen en de feature-boom leren lezen.',fr:'Tourner, déplacer, zoomer et lire l\'arbre des fonctions.',en:'Rotate, pan, zoom and reading the feature tree.'}},
     {deel:1,id:'h04',badge:'basis',full:false,desc:{nl:'Een vlak kiezen en je eerste 2D-schets tekenen.',fr:'Choisir un plan et dessiner votre premier croquis 2D.',en:'Pick a plane and draw your first 2D sketch.'}},
     {deel:1,id:'h05',badge:'basis',full:false,desc:{nl:'Constraints tot de schets volledig bepaald (groen) is.',fr:'Contraintes jusqu\'à un croquis entièrement défini (vert).',en:'Constraints until the sketch is fully defined (green).'}},
@@ -213,7 +208,8 @@ function buildChapterGrid() {
     }
     const title=(CHAPTER_TITLES[lang]||CHAPTER_TITLES.nl)[ch.id];
     const desc=ch.desc[lang]||ch.desc.nl;
-    const done=!!state['done_'+ch.id];
+    const prof=(state.active&&state.profiles&&state.profiles[state.active])?state.profiles[state.active]:{done:{}};
+    const done=!!prof.done[ch.id];
     const badge=(BADGEMAP[lang]||BADGEMAP.nl)[ch.badge];
     const num=ch.id.replace('h','H');
     const chFile=_FILES[ch.id]||(ch.id+'.html');

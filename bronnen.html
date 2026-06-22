@@ -75,8 +75,7 @@
 <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><a href="https://lachiver.fr">D. Lachiver — “Parcours guidé FreeCAD 1.0.2”</a></td><td style="padding:8px">Stap-voor-stap screenshots (FR)</td><td style="padding:8px"><strong>CC BY-SA 4.0</strong> — vermelding + link + gelijke deling</td></tr>
 <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><a href="https://note.com/rock204/n/n90bc4a8e7d82">rock204 — “FreeCAD 1.0 Starter Guide”</a></td><td style="padding:8px">Referentie (1.0)</td><td style="padding:8px">© auteur — referentie / namaken in 1.1.1</td></tr>
 <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><a href="https://www.scan2cad.com/blog/cad/freecad-basics/">Scan2CAD — “FreeCAD Basics”</a></td><td style="padding:8px">Referentie (tooltabellen)</td><td style="padding:8px">© Scan2CAD — referentie</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><a href="https://modelspoor-3d-printen.nl/portal/een-simpele-how-to-voor-freecad/">Modelspoor-3D-printen.nl — how-to</a></td><td style="padding:8px">Referentie (NL)</td><td style="padding:8px">© auteur — referentie</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><a href="https://www.youtube.com/watch?v=FZ77ovmbMlo">CAD CAM Lessons — FreeCAD-tutorial (YouTube)</a></td><td style="padding:8px">Transcriptie = bronkennis; screenshots tot een minimum</td><td style="padding:8px">© kanaal (YouTube-standaardlicentie) — anders eigen captures</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><a href="https://www.youtube.com/watch?v=FZ77ovmbMlo">CAD CAM Lessons — FreeCAD-tutorial (YouTube)</a></td><td style="padding:8px">Als inspiratie/achtergrond gebruikt — niet letterlijk overgenomen; screenshots tot een minimum</td><td style="padding:8px">© kanaal (YouTube-standaardlicentie) — eigen captures</td></tr>
 </tbody></table>
 </div>
 
@@ -126,12 +125,7 @@
 <script src="assets/js/app.js"></script>
 <script src="assets/js/sidebar.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
-  try{ const s=JSON.parse(localStorage.getItem('freecad_cursus'));
-    if(s?.callsign) document.getElementById('hCallsign').textContent=s.callsign;
-    if(!s?.callsign) window.location.href='login.html'; }catch{}
-  renderSidebar(null);
-});
+document.addEventListener('DOMContentLoaded',()=>{ renderSidebar(null); });
 </script>
 </body>
 </html>

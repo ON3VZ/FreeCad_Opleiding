@@ -1561,3 +1561,34 @@ code {
   font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
   color:var(--teal); margin-bottom:8px; display:flex; align-items:center; gap:8px;
 }
+
+/* ── Profielwisselaar (callsign-menu) ── */
+.header-callsign.has-menu { cursor:pointer; display:inline-flex; align-items:center; gap:5px; }
+.header-callsign .cs-caret { font-size:.6rem; opacity:.8; }
+.header-right { position:relative; }
+.callsign-menu {
+  position:absolute; top:46px; right:0; min-width:210px; z-index:300;
+  background:var(--navy); border:1px solid rgba(0,180,204,.35); border-radius:var(--r-md);
+  box-shadow:0 10px 30px rgba(0,0,0,.4); padding:6px; display:none;
+}
+.callsign-menu.open { display:block; }
+.cs-menu-label { font-size:.66rem; text-transform:uppercase; letter-spacing:.08em; color:var(--slate); padding:6px 10px 4px; }
+.cs-menu-item {
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  background:transparent; border:none; cursor:pointer; color:#E6F3F7;
+  font-family:var(--mono); font-size:.82rem; font-weight:700; padding:8px 10px; border-radius:6px; text-align:left;
+}
+.cs-menu-item:hover { background:rgba(0,180,204,.14); }
+.cs-menu-item.active { color:var(--teal); }
+.cs-menu-item .cs-prog { font-size:.72rem; color:var(--slate); font-weight:600; }
+.cs-menu-new {
+  display:block; margin-top:4px; padding:8px 10px; border-top:1px solid rgba(255,255,255,.08);
+  color:var(--teal); font-size:.8rem; font-weight:600; text-decoration:none;
+}
+.cs-menu-new:hover { background:rgba(0,180,204,.12); border-radius:6px; }
+
+/* ── Onthoud-blok: lichte, leesbare tekst op donkere achtergrond ── */
+.memory-box .callout-header { color:var(--teal); }
+.memory-box, .memory-box p, .memory-box li, .memory-box ul { color:#E6F3F7; }
+.memory-box strong { color:#FFFFFF; }
+.memory-box a { color:var(--teal); }
