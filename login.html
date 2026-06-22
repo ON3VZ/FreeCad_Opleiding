@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeCAD voor Radioamateurs — WLD ON6WL</title>
+  <link rel="stylesheet" href="assets/css/freecad.css">
+  <style>
+    body { background: var(--navy); }
+    .login-grid { position:fixed; inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+      background-size:52px 52px; pointer-events:none; }
+    .version-tag { position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+      font-size:.72rem; color:var(--slate); font-family:var(--mono); letter-spacing:.05em; z-index:20; }
+  </style>
+</head>
+<body>
+<div class="login-grid"></div>
+<div class="login-page">
+  <svg class="login-waves" viewBox="0 0 1200 80" preserveAspectRatio="none">
+    <path class="rf-w3" fill="none" stroke="#00B4CC" stroke-width="1.2" d="M0,50 Q60,60 120,50 Q180,40 240,50 Q300,60 360,50 Q420,40 480,50 Q540,60 600,50 Q660,40 720,50 Q780,60 840,50 Q900,40 960,50 Q1020,60 1080,50 Q1140,40 1200,48"/>
+    <path class="rf-w1" fill="none" stroke="#00B4CC" stroke-width="2" d="M0,62 Q40,72 80,62 Q120,52 160,62 Q200,72 240,62 Q280,52 320,62 Q360,72 400,62 Q440,52 480,62 Q520,72 560,62 Q600,52 640,62 Q680,72 720,62 Q760,52 800,62 Q840,72 880,62 Q920,52 960,62 Q1000,72 1040,62 Q1080,52 1120,62 Q1160,72 1200,65"/>
+  </svg>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-bar"></div>
+      <div class="login-logo-wld">WLD</div>
+      <div class="login-logo-info">
+        <span class="login-logo-sub">ON6WL · UBA</span>
+        <span class="login-logo-name">Waaslandse Radio Amateurs</span>
+      </div>
+    </div>
+    <h1 class="login-title" id="lt">FreeCAD voor Radioamateurs</h1>
+    <p class="login-subtitle" id="ls">Leer zelf behuizingen tekenen en printen. Voer je roepletters in en kies je taal om te starten.</p>
+    <label class="login-label" id="lc" for="callsign-inp">Jouw roepletters</label>
+    <input id="callsign-inp" class="login-input" type="text" placeholder="bijv. ON3XYZ" maxlength="10" autocomplete="off" autocapitalize="characters">
+    <div class="login-lang-label" id="ll">Taal / Language / Langue</div>
+    <div class="login-lang-grid">
+      <button class="lang-btn selected" data-lang="nl" onclick="selectLang('nl',this)"><span class="lang-btn-flag">🇧🇪</span><span class="lang-btn-name">Nederlands</span></button>
+      <button class="lang-btn" data-lang="fr" onclick="selectLang('fr',this)"><span class="lang-btn-flag">🇫🇷</span><span class="lang-btn-name">Français</span></button>
+      <button class="lang-btn" data-lang="en" onclick="selectLang('en',this)"><span class="lang-btn-flag">🇬🇧</span><span class="lang-btn-name">English</span></button>
+    </div>
+    <button class="btn-start" id="startBtn" onclick="startCursus()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <span id="lb">Start de cursus</span>
+    </button>
+    <div style="text-align:center;margin-top:14px;">
+      <button onclick="startCursus(true)" style="background:none;border:none;color:var(--slate);font-size:.8rem;cursor:pointer;font-family:var(--font)" id="lg">Doorgaan als gast</button>
+    </div>
+  </div>
+</div>
+<div class="version-tag">WLD ON6WL · FreeCAD-cursus · doelversie 1.1.1</div>
+<script>
+  const TEXTS = {
+    nl:{title:'FreeCAD voor Radioamateurs',sub:'Leer zelf behuizingen tekenen en printen. Voer je roepletters in en kies je taal om te starten.',call:'Jouw roepletters',ph:'bijv. ON3XYZ',lang:'Taal / Language / Langue',btn:'Start de cursus',guest:'Doorgaan als gast'},
+    fr:{title:'FreeCAD pour Radioamateurs',sub:'Apprenez à dessiner et imprimer vos boîtiers. Entrez votre indicatif et choisissez votre langue.',call:'Votre indicatif',ph:'ex. ON3XYZ',lang:'Langue / Taal / Language',btn:'Démarrer le cours',guest:'Continuer en tant qu\'invité'},
+    en:{title:'FreeCAD for Radio Amateurs',sub:'Learn to design and print your own enclosures. Enter your callsign and choose your language.',call:'Your callsign',ph:'e.g. ON3XYZ',lang:'Language / Taal / Langue',btn:'Start the course',guest:'Continue as guest'},
+  };
+  let selectedLang='nl';
+  function selectLang(lang,btn){ selectedLang=lang;
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected');
+    const t=TEXTS[lang];
+    lt.textContent=t.title; ls.textContent=t.sub; lc.textContent=t.call;
+    document.getElementById('callsign-inp').placeholder=t.ph; ll.textContent=t.lang; lb.textContent=t.btn; lg.textContent=t.guest;
+  }
+  function startCursus(guest=false){
+    const callsign=guest?'GUEST':(document.getElementById('callsign-inp').value.trim().toUpperCase()||'GUEST');
+    let state={}; try{state=JSON.parse(localStorage.getItem('freecad_cursus'))||{};}catch{}
+    state.callsign=callsign; state.lang=selectedLang;
+    localStorage.setItem('freecad_cursus',JSON.stringify(state));
+    window.location.href='index.html';
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('callsign-inp').addEventListener('keydown',e=>{ if(e.key==='Enter') startCursus(); });
+    try{ const s=JSON.parse(localStorage.getItem('freecad_cursus'));
+      if(s&&s.lang) selectLang(s.lang,document.querySelector('[data-lang="'+s.lang+'"]'));
+      if(s&&s.callsign&&s.callsign!=='GUEST') document.getElementById('callsign-inp').value=s.callsign;
+    }catch{}
+  });
+</script>
+</body>
+</html>

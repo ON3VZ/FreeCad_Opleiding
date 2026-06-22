@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeCAD voor Radioamateurs — WLD ON6WL</title>
+  <link rel="stylesheet" href="assets/css/freecad.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-logo">
+    <span class="header-logo-wld">WLD</span>
+    <div class="header-logo-sep"></div>
+    <span class="header-logo-title">
+      <span class="lang-block active" data-lang="nl">FreeCAD voor Radioamateurs</span>
+      <span class="lang-block" data-lang="fr">FreeCAD pour Radioamateurs</span>
+      <span class="lang-block" data-lang="en">FreeCAD for Radio Amateurs</span>
+    </span>
+  </div>
+  <div class="header-center">
+    <div class="header-progress-wrap">
+      <div class="header-progress-label">
+        <span data-i18n="progress">Voortgang</span>
+        <span class="header-progress-done">0 / 23</span>
+      </div>
+      <div class="header-progress-track"><div class="header-progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="header-callsign" id="hCallsign">—</span>
+    <div class="lang-switcher">
+      <button class="lang-switch-btn active" data-lang="nl">NL</button>
+      <button class="lang-switch-btn" data-lang="fr">FR</button>
+      <button class="lang-switch-btn" data-lang="en">EN</button>
+    </div>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+  </div>
+</header>
+
+<nav class="app-sidebar"></nav>
+
+<main class="app-main">
+<div class="main-inner">
+
+  <!-- HERO -->
+  <div class="dash-hero">
+    <div class="dash-hero-label">
+      <span class="lang-block active" data-lang="nl">RADIOAMATEURCLUB WLD · ON6WL · CURSUS</span>
+      <span class="lang-block" data-lang="fr">RADIOCLUB WLD · ON6WL · COURS</span>
+      <span class="lang-block" data-lang="en">RADIO AMATEUR CLUB WLD · ON6WL · COURSE</span>
+    </div>
+    <h1>
+      <span class="lang-block active" data-lang="nl">Teken je eigen <span style="color:var(--teal)">behuizingen</span><br>en print ze zelf</span>
+      <span class="lang-block" data-lang="fr">Dessinez vos propres <span style="color:var(--teal)">boîtiers</span><br>et imprimez-les vous-même</span>
+      <span class="lang-block" data-lang="en">Design your own <span style="color:var(--teal)">enclosures</span><br>and print them yourself</span>
+    </h1>
+    <p class="dash-hero-sub">
+      <span class="lang-block active" data-lang="nl">Een volledig leertraject FreeCAD voor radioamateurs — van je eerste schets tot een printklaar onderdeel. Geen CAD-voorkennis vereist. Doelversie: FreeCAD 1.1.1.</span>
+      <span class="lang-block" data-lang="fr">Un parcours complet FreeCAD pour radioamateurs — de votre premier croquis à une pièce prête à imprimer. Aucune connaissance CAO requise. Version cible : FreeCAD 1.1.1.</span>
+      <span class="lang-block" data-lang="en">A complete FreeCAD track for radio amateurs — from your first sketch to a print-ready part. No CAD experience required. Target version: FreeCAD 1.1.1.</span>
+    </p>
+    <div class="dash-hero-actions">
+      <a href="chapters/h01-wat-is-freecad.html" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span class="lang-block active" data-lang="nl">Start het leertraject</span>
+        <span class="lang-block" data-lang="fr">Commencer le cours</span>
+        <span class="lang-block" data-lang="en">Start learning</span>
+      </a>
+    </div>
+    <svg class="dash-hero-waves" viewBox="0 0 820 60" preserveAspectRatio="none">
+      <path class="rf-w3" fill="none" stroke="#00B4CC" stroke-width="1" d="M0,38 Q41,44 82,38 Q123,32 164,38 Q205,44 246,38 Q287,32 328,38 Q369,44 410,38 Q451,32 492,38 Q533,44 574,38 Q615,32 656,38 Q697,44 738,38 Q779,32 820,36"/>
+      <path class="rf-w1" fill="none" stroke="#00B4CC" stroke-width="1.8" d="M0,46 Q20,53 41,46 Q61,39 82,46 Q102,53 123,46 Q143,39 164,46 Q184,53 205,46 Q225,39 246,46 Q266,53 287,46 Q307,39 328,46 Q348,53 369,46 Q389,39 410,46 Q430,53 451,46 Q471,39 492,46 Q512,53 533,46 Q553,39 574,46 Q594,53 615,46 Q635,39 656,46 Q676,53 697,46 Q717,39 738,46 Q758,53 779,46 Q799,39 820,44"/>
+    </svg>
+  </div>
+
+  <!-- VOORTGANG -->
+  <div class="progress-card">
+    <div class="progress-circle-wrap"><div class="progress-circle"><span class="progress-pct">0%</span></div></div>
+    <div class="progress-info">
+      <h3 class="lang-block active" data-lang="nl">Jouw voortgang</h3>
+      <h3 class="lang-block" data-lang="fr">Votre progression</h3>
+      <h3 class="lang-block" data-lang="en">Your progress</h3>
+      <p class="progress-count">0 van 23 voltooid</p>
+      <div class="progress-bar-track"><div class="progress-bar-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- LEERPAD -->
+  <div class="leerpad-wrap">
+    <div class="leerpad-title">
+      <span class="lang-block active" data-lang="nl">LEERPAD</span>
+      <span class="lang-block" data-lang="fr">PARCOURS</span>
+      <span class="lang-block" data-lang="en">LEARNING PATH</span>
+    </div>
+    <div class="leerpad-stages">
+      <span class="stage">📦
+        <span class="lang-block active" data-lang="nl">Basis · bakje rond PCB</span>
+        <span class="lang-block" data-lang="fr">Base · boîtier autour du PCB</span>
+        <span class="lang-block" data-lang="en">Basics · box around PCB</span>
+      </span>
+      <span class="stage-arrow">→</span>
+      <span class="stage">🔩
+        <span class="lang-block active" data-lang="nl">Medior · bak + deksel</span>
+        <span class="lang-block" data-lang="fr">Médior · boîte + couvercle</span>
+        <span class="lang-block" data-lang="en">Medior · box + lid</span>
+      </span>
+      <span class="stage-arrow">→</span>
+      <span class="stage">🎛️
+        <span class="lang-block active" data-lang="nl">Gevorderd · frontpaneel</span>
+        <span class="lang-block" data-lang="fr">Avancé · façade</span>
+        <span class="lang-block" data-lang="en">Advanced · front panel</span>
+      </span>
+      <span class="stage-arrow">→</span>
+      <span class="stage">📡
+        <span class="lang-block active" data-lang="nl">Expert · ARDF-behuizing</span>
+        <span class="lang-block" data-lang="fr">Expert · boîtier ARDF</span>
+        <span class="lang-block" data-lang="en">Expert · ARDF enclosure</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- HOOFDSTUKKEN -->
+  <div id="chapters-container"></div>
+
+</div>
+</main>
+
+<footer class="app-footer">
+  <div class="footer-logo-row">
+    <span class="footer-wld">WLD</span>
+    <div class="footer-sep"></div>
+    <div class="footer-info">ON6WL · Waaslandse Radio Amateurs · <a href="https://on6wl.be">on6wl.be</a></div>
+  </div>
+  <div class="footer-right">
+    <span class="lang-block active" data-lang="nl">FreeCAD-cursus · doelversie 1.1.1 · <a href="bronnen.html">Bronnen</a></span>
+    <span class="lang-block" data-lang="fr">Cours FreeCAD · version cible 1.1.1 · <a href="bronnen.html">Sources</a></span>
+    <span class="lang-block" data-lang="en">FreeCAD course · target version 1.1.1 · <a href="bronnen.html">Sources</a></span>
+  </div>
+</footer>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/sidebar.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const s = JSON.parse(localStorage.getItem('freecad_cursus'));
+    if (s?.callsign) document.getElementById('hCallsign').textContent = s.callsign;
+    if (!s?.callsign) window.location.href = 'login.html';
+  } catch {}
+  renderSidebar(null);
+  buildChapterGrid();
+});
+
+function buildChapterGrid() {
+  const lang = (function(){ try{return JSON.parse(localStorage.getItem('freecad_cursus'))?.lang||'nl';}catch{return 'nl';} })();
+  const state = (function(){ try{return JSON.parse(localStorage.getItem('freecad_cursus'))||{};}catch{return {};} })();
+
+  const DEELS = {
+    nl:{1:'Niveau 1 — Basis',2:'Niveau 2 — Medior',3:'Niveau 3 — Gevorderd',4:'Niveau 4 — Expert'},
+    fr:{1:'Niveau 1 — Base',2:'Niveau 2 — Médior',3:'Niveau 3 — Avancé',4:'Niveau 4 — Expert'},
+    en:{1:'Level 1 — Basics',2:'Level 2 — Medior',3:'Level 3 — Advanced',4:'Level 4 — Expert'},
+  };
+  const REALISATIE = {
+    nl:{1:'Realisatie: een bakje rond een printplaat → STL',2:'Realisatie: bak + deksel met passing en gaten',3:'Realisatie: frontpaneel / antennebeugel, printklaar',4:'Realisatie: parametrische ARDF-behuizing met varianten'},
+    fr:{1:'Réalisation : un boîtier autour d\'un PCB → STL',2:'Réalisation : boîte + couvercle ajustés, avec perçages',3:'Réalisation : façade / support d\'antenne, prêt à imprimer',4:'Réalisation : boîtier ARDF paramétrique avec variantes'},
+    en:{1:'Outcome: a box around a PCB → STL',2:'Outcome: box + lid with fit and holes',3:'Outcome: front panel / antenna bracket, print-ready',4:'Outcome: parametric ARDF enclosure with variants'},
+  };
+  const BADGEMAP = {
+    nl:{basis:'Basis',medior:'Medior',gevorderd:'Gevorderd',expert:'Expert'},
+    fr:{basis:'Base',medior:'Médior',gevorderd:'Avancé',expert:'Expert'},
+    en:{basis:'Basics',medior:'Medior',gevorderd:'Advanced',expert:'Expert'},
+  };
+  const _FILES = {h01:'h01-wat-is-freecad.html',h02:'h02-eerste-start.html',h03:'h03-navigeren-3d.html',h04:'h04-eerste-schets.html',h05:'h05-volledig-bepaald.html',h06:'h06-bakje-export-stl.html',h07:'h07-parametrisch-wijzigen.html',h08:'h08-constraints.html',h09:'h09-uitsparingen-gaten.html',h10:'h10-fillet-chamfer.html',h11:'h11-externe-geometrie.html',h12:'h12-deksel-tolerantie.html',h13:'h13-patronen-spiegelen.html',h14:'h14-hulpvlakken.html',h15:'h15-multibody.html',h16:'h16-dfam.html',h17:'h17-frontpaneel-tekst.html',h18:'h18-sweep-pipe.html',h19:'h19-robuust-topological-naming.html',h20:'h20-spreadsheets.html',h21:'h21-varianten.html',h22:'h22-history-fouten.html',h23:'h23-mesh-stl-slicer.html'};
+
+  const CARD_DATA = [
+    {deel:1,id:'h01',badge:'basis',full:true,desc:{nl:'Wat FreeCAD is, waarom parametrisch, en 1.1.1 installeren.',fr:'Ce qu\'est FreeCAD, pourquoi paramétrique, et installer 1.1.1.',en:'What FreeCAD is, why parametric, and installing 1.1.1.'}},
+    {deel:1,id:'h02',badge:'basis',full:false,desc:{nl:'Voorkeuren (taal/eenheden/thema) en je navigatiestijl kiezen.',fr:'Préférences (langue/unités/thème) et choisir la navigation.',en:'Preferences (language/units/theme) and choosing navigation.'}},
+    {deel:1,id:'h03',badge:'basis',full:false,desc:{nl:'Roteren, pannen, zoomen en de feature-boom leren lezen.',fr:'Tourner, déplacer, zoomer et lire l\'arbre des fonctions.',en:'Rotate, pan, zoom and reading the feature tree.'}},
+    {deel:1,id:'h04',badge:'basis',full:false,desc:{nl:'Een vlak kiezen en je eerste 2D-schets tekenen.',fr:'Choisir un plan et dessiner votre premier croquis 2D.',en:'Pick a plane and draw your first 2D sketch.'}},
+    {deel:1,id:'h05',badge:'basis',full:false,desc:{nl:'Constraints tot de schets volledig bepaald (groen) is.',fr:'Contraintes jusqu\'à un croquis entièrement défini (vert).',en:'Constraints until the sketch is fully defined (green).'}},
+    {deel:1,id:'h06',badge:'basis',full:false,desc:{nl:'Pad naar een bakje, opslaan en exporteren naar STL.',fr:'Extruder vers un boîtier, enregistrer et exporter en STL.',en:'Pad into a box, save and export to STL.'}},
+    {deel:2,id:'h07',badge:'medior',full:false,desc:{nl:'Maten achteraf wijzigen — de kracht van parametrisch.',fr:'Modifier les cotes après coup — la force du paramétrique.',en:'Change dimensions afterwards — the power of parametric.'}},
+    {deel:2,id:'h08',badge:'medior',full:false,desc:{nl:'Coïncident, symmetrie, gelijk, raaklijn — gericht inzetten.',fr:'Coïncidence, symétrie, égal, tangent — bien les utiliser.',en:'Coincident, symmetry, equal, tangent — used well.'}},
+    {deel:2,id:'h09',badge:'medior',full:false,desc:{nl:'Pocket en het Perçage-gereedschap voor schroef- en connectorgaten.',fr:'Pocket et l\'outil Perçage pour vis et connecteurs.',en:'Pocket and the Hole tool for screw and connector holes.'}},
+    {deel:2,id:'h10',badge:'medior',full:false,desc:{nl:'Randen afronden en afkanten — en wat dat doet bij het printen.',fr:'Congés et chanfreins — et leur effet à l\'impression.',en:'Filleting and chamfering edges — and print impact.'}},
+    {deel:2,id:'h11',badge:'medior',full:false,desc:{nl:'Refereren naar bestaande randen en vlakken in een nieuwe schets.',fr:'Référencer des arêtes et faces existantes dans un croquis.',en:'Referencing existing edges and faces in a new sketch.'}},
+    {deel:2,id:'h12',badge:'medior',full:false,desc:{nl:'Een passend deksel ontwerpen: tolerantie en speling (richtwaarde).',fr:'Concevoir un couvercle ajusté : tolérance et jeu (indicatif).',en:'Designing a fitting lid: tolerance and clearance (guideline).'}},
+    {deel:3,id:'h13',badge:'gevorderd',full:false,desc:{nl:'Lineaire en polaire patronen, spiegelen — bv. ventilatieroosters.',fr:'Répétitions linéaires/polaires, symétrie — ex. grilles.',en:'Linear/polar patterns, mirroring — e.g. vent grids.'}},
+    {deel:3,id:'h14',badge:'gevorderd',full:false,desc:{nl:'Hulpvlakken maken om op schuine of verschoven vlakken te schetsen.',fr:'Créer des plans pour esquisser sur des faces inclinées.',en:'Creating datum planes to sketch on angled faces.'}},
+    {deel:3,id:'h15',badge:'gevorderd',full:false,desc:{nl:'Meerdere bodies in één document voor meerdelige behuizingen.',fr:'Plusieurs corps dans un document pour boîtiers multi-pièces.',en:'Multiple bodies in one document for multi-part enclosures.'}},
+    {deel:3,id:'h16',badge:'gevorderd',full:false,desc:{nl:'Wanddikte, overhang, brug, teardrop-gaten, olifantsvoet, anisotropie.',fr:'Épaisseur, surplombs, ponts, trous teardrop, patte d\'éléphant.',en:'Wall thickness, overhang, bridging, teardrop holes, elephant foot.'}},
+    {deel:3,id:'h17',badge:'gevorderd',full:false,desc:{nl:'Tekst embossen of graveren en uitsparingen in een frontpaneel.',fr:'Texte en relief/gravé et découpes dans une façade.',en:'Embossed/engraved text and cut-outs in a front panel.'}},
+    {deel:3,id:'h18',badge:'gevorderd',full:false,desc:{nl:'Sweep en pipe voor geleiders en antennehouders.',fr:'Sweep et pipe pour guides et supports d\'antenne.',en:'Sweep and pipe for guides and antenna holders.'}},
+    {deel:4,id:'h19',badge:'expert',full:false,desc:{nl:'Robuust refereren en het topological naming-probleem.',fr:'Références robustes et le problème de topological naming.',en:'Robust references and the topological naming problem.'}},
+    {deel:4,id:'h20',badge:'expert',full:false,desc:{nl:'Maten centraal sturen met een spreadsheet en parameters.',fr:'Piloter les cotes via une feuille de calcul et paramètres.',en:'Driving dimensions centrally via a spreadsheet and parameters.'}},
+    {deel:4,id:'h21',badge:'expert',full:false,desc:{nl:'Eén model, meerdere maten — varianten voor verschillende PCB\'s.',fr:'Un modèle, plusieurs tailles — variantes selon le PCB.',en:'One model, several sizes — variants for different PCBs.'}},
+    {deel:4,id:'h22',badge:'expert',full:false,desc:{nl:'De feature-boom bewerken en een gebroken model herstellen.',fr:'Modifier l\'arbre et réparer un modèle cassé.',en:'Editing the tree and repairing a broken model.'}},
+    {deel:4,id:'h23',badge:'expert',full:false,desc:{nl:'Mesh maken, resolutie, foutcontrole, STL en naar de slicer.',fr:'Maillage, résolution, contrôle, STL et vers le slicer.',en:'Meshing, resolution, checking, STL and to the slicer.'}},
+  ];
+
+  const container = document.getElementById('chapters-container');
+  if (!container) return;
+  let currentDeel=-1, html='';
+  CARD_DATA.forEach(ch=>{
+    if (ch.deel!==currentDeel){
+      if (currentDeel>=0) html+='</div>';
+      currentDeel=ch.deel;
+      const dTitle=(DEELS[lang]||DEELS.nl)[ch.deel];
+      const rTitle=(REALISATIE[lang]||REALISATIE.nl)[ch.deel];
+      html+=`<div class="section-title"><span class="section-title-num">0${ch.deel}</span>${dTitle}</div>
+        <p style="margin:-6px 0 14px;color:var(--slate);font-size:.86rem">${rTitle}</p><div class="chapter-grid">`;
+    }
+    const title=(CHAPTER_TITLES[lang]||CHAPTER_TITLES.nl)[ch.id];
+    const desc=ch.desc[lang]||ch.desc.nl;
+    const done=!!state['done_'+ch.id];
+    const badge=(BADGEMAP[lang]||BADGEMAP.nl)[ch.badge];
+    const num=ch.id.replace('h','H');
+    const chFile=_FILES[ch.id]||(ch.id+'.html');
+    html+=`<a href="chapters/${chFile}" class="chapter-card${done?' done':''}${!ch.full?' stub':''}" data-chid="${ch.id}">
+      <div class="card-top"><span class="card-num">${num}</span><span class="card-badge ${ch.badge}">${badge}</span>
+      ${done?'<span class="card-status-done">✓</span>':''}</div>
+      <h3>${title}</h3><p>${desc}</p>
+      ${!ch.full?`<p style="margin-top:8px;font-size:.75rem;color:var(--slate-light);font-style:italic">${({nl:'In voorbereiding',fr:'En préparation',en:'Coming soon'})[lang]||'In voorbereiding'}</p>`:''}</a>`;
+  });
+  html+='</div>';
+  container.innerHTML=html;
+}
+</script>
+</body>
+</html>
