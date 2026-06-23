@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H08 · Constraints in de diepte — FreeCAD voor Radioamateurs</title>
+<link rel="stylesheet" href="../assets/css/freecad.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="header-logo"><a href="../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span class="header-logo-wld">WLD</span><div class="header-logo-sep"></div></a>
+  <span class="header-logo-title"><span class="lang-block active" data-lang="nl">FreeCAD voor Radioamateurs</span><span class="lang-block" data-lang="fr">FreeCAD pour Radioamateurs</span><span class="lang-block" data-lang="en">FreeCAD for Radio Amateurs</span></span></div>
+  <div class="header-center"><div class="header-progress-wrap"><div class="header-progress-label"><span data-i18n="progress">Voortgang</span><span class="header-progress-done">0 / 23</span></div><div class="header-progress-track"><div class="header-progress-fill" style="width:0%"></div></div></div></div>
+  <div class="header-right"><span class="header-callsign" id="hCallsign">—</span><div class="lang-switcher"><button class="lang-switch-btn active" data-lang="nl">NL</button><button class="lang-switch-btn" data-lang="fr">FR</button><button class="lang-switch-btn" data-lang="en">EN</button></div><button class="menu-toggle" id="menu-toggle">☰</button></div>
+</header>
+<nav class="app-sidebar"></nav>
+<main class="app-main"><div class="main-inner">
+
+<div class="chapter-header">
+  <div class="ch-header-meta">
+    <div class="ch-breadcrumb"><a href="../index.html"><span class="lang-block active" data-lang="nl">Overzicht</span><span class="lang-block" data-lang="fr">Aperçu</span><span class="lang-block" data-lang="en">Overview</span></a><span>›</span><span class="lang-block active" data-lang="nl">Niveau 2 — Medior</span><span class="lang-block" data-lang="fr">Niveau 2 — Médior</span><span class="lang-block" data-lang="en">Level 2 — Medior</span></div>
+    <span class="ch-badge ch-badge-num">H08</span><span class="ch-badge ch-badge-level medior"><span class="lang-block active" data-lang="nl">Medior</span><span class="lang-block" data-lang="fr">Médior</span><span class="lang-block" data-lang="en">Medior</span></span>
+  </div>
+  <h1><span class="lang-block active" data-lang="nl">Constraints in de diepte</span><span class="lang-block" data-lang="fr">Les contraintes en profondeur</span><span class="lang-block" data-lang="en">Constraints in depth</span></h1>
+  <p class="intro"><span class="lang-block active" data-lang="nl">In H05 leerden we een schets volledig bepalen. Nu leren we de hele <strong>familie constraints</strong> kennen en — minstens even belangrijk — wanneer je welke gebruikt. Slim constrainen betekent: niet zomaar maten stapelen, maar je <em>bedoeling</em> vastleggen, zodat je behuizing later netjes meeschaalt.</span><span class="lang-block" data-lang="fr">En H05, on a appris à contraindre entièrement. Découvrons toute la <strong>famille de contraintes</strong> et, surtout, quand utiliser chacune. Bien contraindre, c'est exprimer son <em>intention</em>, pas empiler des cotes.</span><span class="lang-block" data-lang="en">In H05 we learned to fully constrain a sketch. Now we meet the whole <strong>family of constraints</strong> and — just as important — when to use each. Constraining well means capturing your <em>intent</em>, not piling on dimensions.</span></p>
+  <svg class="ch-header-waves" viewBox="0 0 820 44" preserveAspectRatio="none"><path class="rf-w3" fill="none" stroke="#00B4CC" stroke-width="1" d="M0,28 Q41,34 82,28 Q123,22 164,28 Q205,34 246,28 Q287,22 328,28 Q369,34 410,28 Q451,22 492,28 Q533,34 574,28 Q615,22 656,28 Q697,34 738,28 Q779,22 820,26"/><path class="rf-w1" fill="none" stroke="#00B4CC" stroke-width="1.8" d="M0,34 Q20,40 41,34 Q61,28 82,34 Q102,40 123,34 Q143,28 164,34 Q184,40 205,34 Q225,28 246,34 Q266,40 287,34 Q307,28 328,34 Q348,40 369,34 Q389,28 410,34 Q430,40 451,34 Q471,28 492,34 Q512,40 533,34 Q553,28 574,34 Q594,40 615,34 Q635,28 656,34 Q676,40 697,34 Q717,28 738,34 Q758,40 779,34 Q799,28 820,32"/></svg>
+</div>
+
+<div class="chapter-body">
+
+<div class="leerdoelen">
+  <div class="leerdoelen-header"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="objectives">Na dit hoofdstuk kun je</span></div>
+  <ul>
+    <li><span class="lang-block active" data-lang="nl">de belangrijkste geometrische en dimensionale constraints benoemen en toepassen</span><span class="lang-block" data-lang="fr">nommer et appliquer les principales contraintes</span><span class="lang-block" data-lang="en">name and apply the main geometric and dimensional constraints</span></li>
+    <li><span class="lang-block active" data-lang="nl">met gelijkheid en symmetrie minder maten gebruiken</span><span class="lang-block" data-lang="fr">utiliser égalité et symétrie pour réduire les cotes</span><span class="lang-block" data-lang="en">use equality and symmetry to need fewer dimensions</span></li>
+    <li><span class="lang-block active" data-lang="nl">constructiegeometrie inzetten als hulplijnen</span><span class="lang-block" data-lang="fr">utiliser la géométrie de construction comme repères</span><span class="lang-block" data-lang="en">use construction geometry as helper lines</span></li>
+  </ul>
+</div>
+
+<h2><span class="section-num">01</span><span class="lang-block active" data-lang="nl">De familie geometrische constraints</span><span class="lang-block" data-lang="fr">La famille des contraintes géométriques</span><span class="lang-block" data-lang="en">The geometric constraint family</span></h2>
+<p><span class="lang-block active" data-lang="nl">Geometrische constraints leggen een <em>relatie</em> vast, zonder getal. De belangrijkste:</span><span class="lang-block" data-lang="fr">Les contraintes géométriques fixent une <em>relation</em>, sans valeur. Les principales :</span><span class="lang-block" data-lang="en">Geometric constraints fix a <em>relationship</em>, without a number. The main ones:</span></p>
+<ul>
+  <li><span class="lang-block active" data-lang="nl"><strong>Samenvallend</strong> — twee punten vallen samen (bv. een hoekpunt op de oorsprong).</span><span class="lang-block" data-lang="fr"><strong>Coïncidence</strong> — deux points confondus (un coin sur l'origine).</span><span class="lang-block" data-lang="en"><strong>Coincident</strong> — two points meet (a corner on the origin).</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Horizontaal / Verticaal</strong> — een lijn ligt exact horizontaal of verticaal.</span><span class="lang-block" data-lang="fr"><strong>Horizontale / Verticale</strong> — une ligne strictement horizontale/verticale.</span><span class="lang-block" data-lang="en"><strong>Horizontal / Vertical</strong> — a line lies exactly horizontal/vertical.</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Parallel / Loodrecht</strong> — twee lijnen lopen evenwijdig of staan haaks.</span><span class="lang-block" data-lang="fr"><strong>Parallèle / Perpendiculaire</strong> — deux lignes parallèles ou à angle droit.</span><span class="lang-block" data-lang="en"><strong>Parallel / Perpendicular</strong> — two lines run parallel or at a right angle.</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Gelijk</strong> — twee elementen krijgen dezelfde lengte of straal (één maat volstaat dan voor beide).</span><span class="lang-block" data-lang="fr"><strong>Égalité</strong> — même longueur/rayon (une cote pour les deux).</span><span class="lang-block" data-lang="en"><strong>Equal</strong> — same length or radius (one dimension then covers both).</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Raaklijn</strong> — een lijn en een boog (of twee bogen) raken elkaar vloeiend.</span><span class="lang-block" data-lang="fr"><strong>Tangence</strong> — raccord tangent ligne/arc.</span><span class="lang-block" data-lang="en"><strong>Tangent</strong> — a line and an arc meet smoothly.</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Symmetrie</strong> — twee elementen liggen gespiegeld t.o.v. een as of punt.</span><span class="lang-block" data-lang="fr"><strong>Symétrie</strong> — éléments symétriques par rapport à un axe/point.</span><span class="lang-block" data-lang="en"><strong>Symmetric</strong> — two elements mirror about an axis or point.</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Blokkering</strong> — bevriest een element volledig op zijn plaats.</span><span class="lang-block" data-lang="fr"><strong>Blocage</strong> — fige un élément.</span><span class="lang-block" data-lang="en"><strong>Block</strong> — freezes an element in place.</span></li>
+</ul>
+
+<div class="figure">
+  <img src="../assets/img/h08/h08-constraints.png" alt="Een groene schets vastgehouden door meerdere constraints: een maat van 100 mm, een hoek van 45° en gelijkheidstekens">
+  <div class="figcaption"><span class="fignum">Fig. 8.1</span><span class="lang-block active" data-lang="nl">Eén schets, meerdere constraints samen: een <strong>maat</strong> (100&nbsp;mm), een <strong>hoek</strong> (45°), <strong>gelijkheids</strong>- en <strong>horizontaal/verticaal</strong>-tekens. Samen maken ze de schets groen.</span><span class="lang-block" data-lang="fr">Un croquis tenu par plusieurs contraintes : cote (100&nbsp;mm), angle (45°), égalité, horizontale/verticale.</span><span class="lang-block" data-lang="en">One sketch held by several constraints: a dimension (100&nbsp;mm), an angle (45°), equality and horizontal/vertical marks.</span><span class="source-credit">© Dominique Lachiver — <em>Parcours guidé FreeCAD</em>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. FreeCAD 1.0/1.1 (FR). <a href="../bronnen.html">Bronnen</a></span></div>
+</div>
+
+<h2><span class="section-num">02</span><span class="lang-block active" data-lang="nl">Dimensionale constraints</span><span class="lang-block" data-lang="fr">Contraintes dimensionnelles</span><span class="lang-block" data-lang="en">Dimensional constraints</span></h2>
+<p><span class="lang-block active" data-lang="nl">Deze geven een echte <strong>maat</strong>: lengte, horizontale of verticale afstand, straal of diameter, en hoek. Je herkent ze aan de maatpijlen in je schets. Tip: leg liefst <em>horizontale</em> en <em>verticale</em> afstanden vast in plaats van schuine lengtes — dat houdt je schets leesbaar en voorspelbaar.</span><span class="lang-block" data-lang="fr">Elles donnent une <strong>cote</strong> : longueur, distance horizontale/verticale, rayon/diamètre, angle. Préférez les distances horizontales/verticales aux longueurs obliques.</span><span class="lang-block" data-lang="en">These give a real <strong>measurement</strong>: length, horizontal/vertical distance, radius/diameter, and angle. Prefer horizontal/vertical distances over slanted lengths — it keeps the sketch readable.</span></p>
+
+<div class="callout callout-tip">
+  <div class="callout-header">💡 <span data-i18n="tip_title">Tip</span></div>
+  <p><span class="lang-block active" data-lang="nl">Gebruik <strong>gelijk</strong> en <strong>symmetrie</strong> om je bedoeling te vangen. Wil je een vierkant bakje? Geef één zijde een maat en maak de andere <em>gelijk</em>. Moet iets gecentreerd blijven? Gebruik <em>symmetrie</em> t.o.v. een as. Zo hoef je later maar één getal te wijzigen.</span><span class="lang-block" data-lang="fr">Utilisez <strong>égalité</strong> et <strong>symétrie</strong> pour exprimer l'intention : un seul nombre à changer ensuite.</span><span class="lang-block" data-lang="en">Use <strong>equal</strong> and <strong>symmetric</strong> to capture intent: then only one number to change later.</span></p>
+</div>
+
+<h2><span class="section-num">03</span><span class="lang-block active" data-lang="nl">Constructiegeometrie: onzichtbare hulplijnen</span><span class="lang-block" data-lang="fr">Géométrie de construction</span><span class="lang-block" data-lang="en">Construction geometry</span></h2>
+<p><span class="lang-block active" data-lang="nl">Soms heb je een hulplijn nodig die <em>niet</em> in je uiteindelijke vorm mag belanden — bijvoorbeeld een middellijn om iets symmetrisch te plaatsen, of een cirkel waarop je gaten verdeelt. Daarvoor bestaat <strong>constructiegeometrie</strong>: geometrie die enkel helpt bij het construeren en het bepalen van constraints, maar geen deel wordt van het pad/de pocket. FreeCAD toont ze als een <strong>blauwe streepjeslijn</strong>. Met een knop schakel je gewone geometrie om naar constructiegeometrie en terug.</span><span class="lang-block" data-lang="fr">Parfois il faut un repère qui ne doit <em>pas</em> apparaître dans la forme finale (un axe pour centrer, un cercle pour répartir des trous). C'est la <strong>géométrie de construction</strong> : elle aide à construire et contraindre sans faire partie du Pad/Pocket. FreeCAD l'affiche en <strong>trait interrompu bleu</strong>. Un bouton bascule entre géométrie réelle et construction.</span><span class="lang-block" data-lang="en">Sometimes you need a helper line that must <em>not</em> end up in the final shape — a centerline to place things symmetrically, or a circle to space holes on. That's <strong>construction geometry</strong>: it helps you build and constrain but isn't part of the Pad/Pocket. FreeCAD shows it as a <strong>dashed blue line</strong>. A button toggles normal geometry to construction and back.</span></p>
+
+<div class="callout callout-key">
+  <div class="callout-header">🔑 <span data-i18n="key_title">Kernregel</span></div>
+  <p><span class="lang-block active" data-lang="nl">Constructiegeometrie = <strong>hulpmiddel</strong>, geen materiaal. Ze verdwijnt niet uit je schets, maar telt niet mee als rand van je 3D-vorm. Ideaal om netjes en symmetrisch te positioneren.</span><span class="lang-block" data-lang="fr">Géométrie de construction = <strong>aide</strong>, pas de matière. Elle ne devient pas une arête du solide.</span><span class="lang-block" data-lang="en">Construction geometry = a <strong>helper</strong>, not material. It never becomes an edge of your solid.</span></p>
+</div>
+
+<div class="callout callout-shack">
+  <div class="callout-header">📻 <span class="lang-block active" data-lang="nl">In de shack</span><span class="lang-block" data-lang="fr">En pratique</span><span class="lang-block" data-lang="en">In the shack</span></div>
+  <p><span class="lang-block active" data-lang="nl">Gebruik een constructie-middellijn plus symmetrie zodat je behuizing altijd netjes gecentreerd blijft op de oorsprong. Schaal je hem later op voor een grotere printplaat, dan groeit hij symmetrisch — geen scheve gaten of verschoven wanden.</span><span class="lang-block" data-lang="fr">Un axe de construction + symétrie gardent le boîtier centré : il grandit symétriquement.</span><span class="lang-block" data-lang="en">Use a construction centerline plus symmetry so your enclosure stays centred on the origin: scale it up and it grows symmetrically.</span></p>
+</div>
+
+<div class="doe-opdracht">
+  <div class="do-head">🛠️ <span data-i18n="task_title">Doe-opdracht</span></div>
+  <p><span class="lang-block active" data-lang="nl">Open de basisschets van je bakje. Teken een <strong>constructie</strong>-middellijn door het midden en leg met een <strong>symmetrie</strong>-constraint de linker- en rechterzijde symmetrisch t.o.v. die lijn. Geef daarna nog maar één breedtemaat. Controleer dat de schets <strong>groen</strong> is. Speel ook eens met <em>gelijk</em>: maak twee zijden gelijk en zie hoeveel maten je daardoor uitspaart.</span><span class="lang-block" data-lang="fr">Tracez un axe de <strong>construction</strong>, ajoutez une <strong>symétrie</strong> des deux côtés, puis une seule cote de largeur. Vérifiez le <strong>vert</strong>. Essayez aussi <em>égalité</em>.</span><span class="lang-block" data-lang="en">Draw a <strong>construction</strong> centerline, add a <strong>symmetry</strong> constraint for the left/right sides, then a single width dimension. Check it's <strong>green</strong>. Also try <em>equal</em>.</span></p>
+</div>
+
+<h2><span class="section-num">04</span><span class="lang-block active" data-lang="nl">Veelgemaakte fouten</span><span class="lang-block" data-lang="fr">Erreurs fréquentes</span><span class="lang-block" data-lang="en">Common mistakes</span></h2>
+<ul>
+  <li><span class="lang-block active" data-lang="nl"><strong>Alles met maten dichttimmeren.</strong> Gebruik gelijk/symmetrie/parallel; dat legt je bedoeling beter vast en geeft minder werk bij wijzigingen.</span><span class="lang-block" data-lang="fr"><strong>Tout coter.</strong> Préférez égalité/symétrie/parallèle.</span><span class="lang-block" data-lang="en"><strong>Pinning everything with dimensions.</strong> Use equal/symmetric/parallel instead.</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Constructiegeometrie vergeten om te schakelen.</strong> Een hulplijn die "echt" blijft, wordt onbedoeld een rand van je vorm.</span><span class="lang-block" data-lang="fr"><strong>Oublier de basculer en construction.</strong> Sinon le repère devient une arête.</span><span class="lang-block" data-lang="en"><strong>Forgetting to toggle construction.</strong> A helper left "real" becomes an unwanted edge.</span></li>
+  <li><span class="lang-block active" data-lang="nl"><strong>Tegenstrijdige constraints.</strong> Bv. twee lijnen parallel én loodrecht maken. De solver waarschuwt; verwijder de strijdige constraint.</span><span class="lang-block" data-lang="fr"><strong>Contraintes contradictoires.</strong> Le solveur alerte ; supprimez-en une.</span><span class="lang-block" data-lang="en"><strong>Conflicting constraints.</strong> The solver warns; remove the clashing one.</span></li>
+</ul>
+
+<h2><span class="section-num">05</span><span data-i18n="summary_title">Samenvatting</span></h2>
+<p><span class="lang-block active" data-lang="nl">Er is een rijke familie <strong>geometrische</strong> constraints (samenvallend, horizontaal/verticaal, parallel, loodrecht, gelijk, raaklijn, symmetrie, blokkering) en <strong>dimensionale</strong> constraints (lengte, afstand, straal, hoek). Leg je <em>bedoeling</em> vast met gelijk en symmetrie, en gebruik <strong>constructiegeometrie</strong> als onzichtbare hulplijnen. Zo blijven je schetsen leesbaar, robuust en makkelijk te wijzigen.</span><span class="lang-block" data-lang="fr">Une riche famille de contraintes <strong>géométriques</strong> et <strong>dimensionnelles</strong>. Exprimez l'intention (égalité, symétrie) et utilisez la <strong>géométrie de construction</strong>.</span><span class="lang-block" data-lang="en">A rich family of <strong>geometric</strong> and <strong>dimensional</strong> constraints. Capture intent with equal and symmetric, and use <strong>construction geometry</strong> as invisible helpers.</span></p>
+
+<div class="callout callout-key memory-box">
+  <div class="callout-header">🧠 <span data-i18n="memory_title">Onthoud dit</span></div>
+  <ul>
+    <li><span class="lang-block active" data-lang="nl">Constraints leggen <strong>relaties</strong> (geometrisch) of <strong>maten</strong> (dimensionaal) vast.</span><span class="lang-block" data-lang="fr">Contraintes = relations (géométriques) ou cotes (dimensionnelles).</span><span class="lang-block" data-lang="en">Constraints fix <strong>relationships</strong> or <strong>dimensions</strong>.</span></li>
+    <li><span class="lang-block active" data-lang="nl"><strong>Gelijk + symmetrie</strong> = je bedoeling vastleggen met minder maten.</span><span class="lang-block" data-lang="fr"><strong>Égalité + symétrie</strong> = moins de cotes.</span><span class="lang-block" data-lang="en"><strong>Equal + symmetric</strong> = capture intent with fewer dimensions.</span></li>
+    <li><span class="lang-block active" data-lang="nl"><strong>Constructiegeometrie</strong> (blauw gestreept) helpt, maar wordt geen vorm.</span><span class="lang-block" data-lang="fr"><strong>Construction</strong> (bleu pointillé) aide sans devenir matière.</span><span class="lang-block" data-lang="en"><strong>Construction geometry</strong> (dashed blue) helps but never becomes a shape.</span></li>
+  </ul>
+</div>
+
+<div class="complete-area" style="text-align:center;margin:34px 0 10px"><button id="btn-complete" class="btn btn-complete" data-chid="h08">✓ Markeer als voltooid</button></div>
+<div class="chapter-nav-footer"><a class="ch-nav-btn" href="h07-parametrisch-wijzigen.html"><span data-i18n="prev">← Vorige</span></a><a class="ch-nav-btn" href="h09-uitsparingen-gaten.html"><span data-i18n="next">Volgende →</span></a></div>
+
+</div></main>
+<footer class="app-footer"><div class="footer-logo-row"><span class="footer-wld">WLD</span><div class="footer-sep"></div><div class="footer-info">ON6WL · Waaslandse Radio Amateurs · <a href="https://on6wl.be">on6wl.be</a></div></div><div class="footer-right">FreeCAD-cursus · 1.1.1 · <a href="../bronnen.html">Bronnen</a></div></footer>
+<script src="../assets/js/app.js"></script><script src="../assets/js/sidebar.js"></script>
+<script>document.addEventListener('DOMContentLoaded',()=>{ renderSidebar('h08'); });</script>
+</body></html>
