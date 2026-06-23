@@ -1592,3 +1592,7 @@ code {
 .memory-box, .memory-box p, .memory-box li, .memory-box ul { color:#E6F3F7; }
 .memory-box strong { color:#FFFFFF; }
 .memory-box a { color:var(--teal); }
+
+/* Kleine (diagram/icoon) figuren niet opblazen */
+.figure.is-small { max-width: 420px; margin-left:auto; margin-right:auto; }
+.figure.is-small img { width:100%; height:auto; }
