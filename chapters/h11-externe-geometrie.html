@@ -36,6 +36,19 @@
   </ul>
 </div>
 
+<div class="howto">
+  <div class="howto-h"><span class="lang-block active" data-lang="nl">⚙️ Zo doe je het in FreeCAD 1.1.1</span><span class="lang-block" data-lang="fr">⚙️ Comment faire dans FreeCAD 1.1.1</span><span class="lang-block" data-lang="en">⚙️ How to do it in FreeCAD 1.1.1</span></div>
+  <div class="howto-body">
+    <p><span class="lang-block active" data-lang="nl"><strong>Workbench:</strong> <strong>Sketcher</strong> — binnen een schets op een vlak.</span><span class="lang-block" data-lang="fr"><strong>Atelier :</strong> <strong>Sketcher</strong> — dans un croquis.</span><span class="lang-block" data-lang="en"><strong>Workbench:</strong> <strong>Sketcher</strong> — inside a sketch.</span></p>
+    <p><span class="lang-block active" data-lang="nl"><strong>Commando:</strong> <span class="path">Schets → Sketcher-gereedschap → Externe geometrie</span>. Klik de <strong>rand</strong>, stop met <strong>rechtsklik</strong>/<strong>Esc</strong>.</span><span class="lang-block" data-lang="fr"><strong>Commande :</strong> <span class="path">Esquisse → Géométrie externe</span>. <strong>Arête</strong>, puis <strong>clic droit</strong>.</span><span class="lang-block" data-lang="en"><strong>Command:</strong> <span class="path">Sketch → Sketcher tools → External geometry</span>. <strong>Edge</strong>, then <strong>right-click</strong>.</span></p>
+    <ol>
+      <li><span class="lang-block active" data-lang="nl">Start <strong>Externe geometrie</strong>.</span><span class="lang-block" data-lang="fr"><strong>Géométrie externe</strong>.</span><span class="lang-block" data-lang="en"><strong>External geometry</strong>.</span></li>
+      <li><span class="lang-block active" data-lang="nl">Klik de <strong>rand</strong> → <strong>rechtsklik</strong>.</span><span class="lang-block" data-lang="fr"><strong>Arête</strong> → <strong>clic droit</strong>.</span><span class="lang-block" data-lang="en"><strong>Edge</strong> → <strong>right-click</strong>.</span></li>
+      <li><span class="lang-block active" data-lang="nl">Element + <strong>referentie</strong> → <strong>constraint</strong>.</span><span class="lang-block" data-lang="fr">Élément + <strong>référence</strong> → <strong>contrainte</strong>.</span><span class="lang-block" data-lang="en">Element + <strong>reference</strong> → <strong>constraint</strong>.</span></li>
+    </ol>
+  </div>
+</div>
+
 <h2><span class="section-num">01</span><span class="lang-block active" data-lang="nl">Het probleem: losse maten "weten" niets van de bak</span><span class="lang-block" data-lang="fr">Le problème : des cotes isolées</span><span class="lang-block" data-lang="en">The problem: loose dimensions know nothing</span></h2>
 <p><span class="lang-block active" data-lang="nl">Stel: je plaatst een schroefgat op 10&nbsp;mm van de rand met een gewone maat. Maak je de bak later breder, dan blijft dat gat op zijn oude plek — niet meer netjes t.o.v. de nieuwe rand. De oorzaak: je maat verwijst naar een vast punt, niet naar de rand van de bak. Externe geometrie lost dit op.</span><span class="lang-block" data-lang="fr">Un trou coté à 10&nbsp;mm du bord reste figé si la boîte s'élargit : la cote vise un point fixe, pas l'arête. La géométrie externe règle cela.</span><span class="lang-block" data-lang="en">Place a screw hole 10&nbsp;mm from the edge with a plain dimension; widen the box later and the hole stays put — no longer right by the new edge. The dimension points to a fixed point, not the box edge. External geometry fixes this.</span></p>
 

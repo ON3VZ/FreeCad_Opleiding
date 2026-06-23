@@ -36,6 +36,20 @@
   </ul>
 </div>
 
+<div class="howto">
+  <div class="howto-h"><span class="lang-block active" data-lang="nl">⚙️ Zo doe je het in FreeCAD 1.1.1</span><span class="lang-block" data-lang="fr">⚙️ Comment faire dans FreeCAD 1.1.1</span><span class="lang-block" data-lang="en">⚙️ How to do it in FreeCAD 1.1.1</span></div>
+  <div class="howto-body">
+    <p><span class="lang-block active" data-lang="nl"><strong>Workbench:</strong> <strong>Part Design</strong>. Deksel = aparte <strong>Body</strong>.</span><span class="lang-block" data-lang="fr"><strong>Atelier :</strong> <strong>Part Design</strong>. Couvercle = <strong>corps</strong> séparé.</span><span class="lang-block" data-lang="en"><strong>Workbench:</strong> <strong>Part Design</strong>. Lid = separate <strong>Body</strong>.</span></p>
+    <p><span class="lang-block active" data-lang="nl"><strong>Lip met speling:</strong> schets onderaan, <strong>externe geometrie</strong> (H11), maat <strong>0,2&nbsp;mm</strong> naar binnen, dan <span class="path">Part Design → Pad</span> + <span class="path">… → Afkanting</span>.</span><span class="lang-block" data-lang="fr"><strong>Rebord :</strong> croquis dessous, <strong>géométrie externe</strong>, <strong>0,2&nbsp;mm</strong>, <span class="path">Pad</span> + <span class="path">Chanfrein</span>.</span><span class="lang-block" data-lang="en"><strong>Lip:</strong> sketch underneath, <strong>external geometry</strong>, <strong>0.2&nbsp;mm</strong> inward, <span class="path">Pad</span> + <span class="path">Chamfer</span>.</span></p>
+    <ol>
+      <li><span class="lang-block active" data-lang="nl">Maak een <strong>plaat</strong> ter grootte van de bovenkant.</span><span class="lang-block" data-lang="fr"><strong>Plaque</strong> (taille du dessus).</span><span class="lang-block" data-lang="en"><strong>Plate</strong> (size of the top).</span></li>
+      <li><span class="lang-block active" data-lang="nl">Lip 0,2&nbsp;mm <strong>kleiner</strong> → <strong>Pad</strong> omlaag.</span><span class="lang-block" data-lang="fr">Rebord <strong>−0,2&nbsp;mm</strong> → <strong>Pad</strong>.</span><span class="lang-block" data-lang="en">Lip <strong>0.2&nbsp;mm smaller</strong> → <strong>Pad</strong>.</span></li>
+      <li><span class="lang-block active" data-lang="nl">Onderrand <strong>Chamfer</strong> → OK.</span><span class="lang-block" data-lang="fr"><strong>Chanfrein</strong> en bas.</span><span class="lang-block" data-lang="en">Bottom <strong>chamfer</strong>.</span></li>
+      <li><span class="lang-block active" data-lang="nl">Print een <strong>pashoekje</strong> en stem af.</span><span class="lang-block" data-lang="fr"><strong>Coin d'essai</strong> → ajustez.</span><span class="lang-block" data-lang="en"><strong>Corner test</strong> → tune.</span></li>
+    </ol>
+  </div>
+</div>
+
 <h2><span class="section-num">01</span><span class="lang-block active" data-lang="nl">Waarom "exact op maat" niet past</span><span class="lang-block" data-lang="fr">Pourquoi « à la cote exacte » ne va pas</span><span class="lang-block" data-lang="en">Why "exact size" doesn't fit</span></h2>
 <p><span class="lang-block active" data-lang="nl">Op het scherm passen twee delen met identieke maten perfect. In het echt niet: gesmolten plastic zet licht uit, de eerste laag spreidt (de "olifantsvoet"), en gaten printen vaak ondermaats. Teken je deksel en bak op exact dezelfde maat, dan klemt het of gaat het helemaal niet. De oplossing is <strong>speling</strong> (jeu/clearance): een klein, bewust verschil tussen de twee delen.</span><span class="lang-block" data-lang="fr">À l'écran, deux pièces identiques s'emboîtent. En vrai, non : le plastique gonfle, la 1ʳᵉ couche s'étale, les trous sortent petits. À cotes égales, ça coince. Solution : du <strong>jeu</strong>, un petit écart volontaire.</span><span class="lang-block" data-lang="en">On screen, two identical parts fit perfectly. In reality they don't: molten plastic swells slightly, the first layer spreads ("elephant's foot"), and holes print undersized. Draw lid and box at the same size and it jams. The fix is <strong>clearance</strong>: a small, deliberate gap.</span></p>
 
