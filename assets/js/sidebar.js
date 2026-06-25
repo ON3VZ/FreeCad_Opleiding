@@ -31,6 +31,8 @@ function renderSidebar(activeId){
     });
     html+=`</ul></div>`;
   });
+  const refLabel={nl:'Sneltoetsen-spiekfiche',fr:'Aide-mémoire raccourcis',en:'Shortcuts cheat sheet'}[lang]||'Sneltoetsen';
+  html+=`<div class="sidebar-section"><div class="sidebar-section-label" style="color:var(--teal);border-color:rgba(0,180,204,.3)"><span class="sidebar-section-num" style="background:rgba(0,180,204,.12);color:var(--teal)">⌨</span>Referentie</div><ul class="sidebar-nav"><li><a href="${base}sneltoetsen.html"><span class="nav-ch-num" style="color:var(--teal)">⌨</span><span>${refLabel}</span></a></li></ul></div>`;
   const srcLabel={nl:'Bronnen & licenties',fr:'Sources & licences',en:'Sources & licences'}[lang]||'Bronnen';
   html+=`<div class="sidebar-section"><div class="sidebar-section-label" style="color:var(--orange);border-color:rgba(255,107,53,.3)"><span class="sidebar-section-num" style="background:rgba(255,107,53,.12);color:var(--orange)">©</span>Bronnen</div><ul class="sidebar-nav"><li><a href="${base}bronnen.html"><span class="nav-ch-num" style="color:var(--orange)">B</span><span>${srcLabel}</span></a></li></ul></div>`;
   const el=document.querySelector('.app-sidebar');

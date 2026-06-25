@@ -1606,3 +1606,17 @@ code {
 .howto-body ol li{margin:5px 0;line-height:1.55}
 .howto .path{font-family:'JetBrains Mono','SFMono-Regular',monospace;background:rgba(5,13,26,.07);border:1px solid var(--border);border-radius:5px;padding:1px 7px;font-size:.84em;white-space:nowrap;color:var(--navy)}
 .howto .uikey{font-weight:700;color:var(--teal-dark,#0a7d8c)}
+
+/* Tijdelijke donkere schermopnames — bewust "schermopname"-kader */
+.figure.screencap{position:relative;}
+.figure.screencap img{background:#0e1b2c;padding:10px;border-radius:10px;border:1px solid #24405f;box-shadow:inset 0 0 0 1px rgba(0,180,204,.22),0 3px 12px rgba(5,13,26,.16);}
+.screencap-badge{position:absolute;top:12px;right:12px;z-index:3;background:var(--teal);color:#04242b;font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.03em;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+
+/* Sneltoetsen-spiekfiche */
+.kbd{display:inline-block;min-width:22px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;color:var(--navy);background:linear-gradient(#fff,#eef3f6);border:1px solid #c4d2dc;border-bottom-width:2px;border-radius:6px;padding:2px 7px;box-shadow:0 1px 0 rgba(5,13,26,.08);}
+.cheat-cat{margin:24px 0 6px;font-weight:700;color:var(--navy);font-size:1.05rem;display:flex;align-items:center;gap:9px;}
+.cheat-cat .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);}
+.cheat-table{width:100%;border-collapse:collapse;margin:4px 0 8px;}
+.cheat-table td{border-bottom:1px solid var(--border);padding:9px 10px;vertical-align:top;line-height:1.5;}
+.cheat-table td:first-child{white-space:nowrap;width:160px;}
+.cheat-tip{font-size:.92rem;color:#43586b;}
