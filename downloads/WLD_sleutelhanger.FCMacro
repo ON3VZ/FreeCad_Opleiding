@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+# =====================================================================
+#  WLD-sleutelhanger v2 — Yagi-antenne met verhoogde WLD-letters
+#  FreeCAD-macro (1.x, Python-API; werkt ook headless).
+#  Twee gekleurde objecten: "Basis" (Yagi + letterkern) en "Opdruk"
+#  (bovenste 2 mm van de letters). Parameters bovenaan.
+#  Richtwaarden zijn printer-/materiaal-afhankelijk: kalibreer zelf.
+# =====================================================================
+
+import FreeCAD as App
+import Part
+import Draft
+import os
+
+# ---------------- Parameters (mm) ----------------
+BOOM_LENGTE     = 60.0     # totale lengte van de Yagi-boom
+BOOM_BREEDTE    = 4.0
+PLAAT_DIKTE     = 3.0      # dikte van de antenne-basis
+RELIEF          = 2.0      # letters steken zoveel boven de plaat uit
+LETTER_GROOTTE  = 20.0
+TEKST           = "WLD"
+ELEMENT_BREEDTE = 3.0
+# Elementen: (x-positie middelpunt, lengte) — reflector -> directors
+ELEMENTEN = [
+    ( 7.0, 34.0),   # reflector
+    (19.0, 28.0),   # gevoed element
+    (31.0, 24.0),   # director 1
+    (43.0, 21.0),   # director 2
+    (55.0, 18.0),   # director 3
+]
+OOG_X, OOG_BUITEN_R = -1.0, 5.0
+OOG_GAT_R       = 2.25     # gat O4,5 — print vaak ondermaats
+
+# Kleuren (R, G, B — waarden 0..1)
+KLEUR_BASIS     = (0.10, 0.21, 0.36)   # navy
+KLEUR_OPDRUK    = (0.96, 0.68, 0.33)   # amber/geel-oranje
+
+FONT_KANDIDATEN = [
+    "C:/Windows/Fonts/arialbd.ttf",
+    "C:/Windows/Fonts/verdanab.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+]
+
+# ---------------- Opbouw ----------------
+font = next((f for f in FONT_KANDIDATEN if os.path.exists(f)), None)
+if font is None:
+    raise RuntimeError("Geen lettertype gevonden - vul FONT_KANDIDATEN aan.")
+
+# Oud resultaat sluiten zodat je vlot kunt itereren
+for naam in list(App.listDocuments()):
+    if naam.startswith("WLD_sleutelhanger"):
+        App.closeDocument(naam)
+
+doc = App.newDocument("WLD_sleutelhanger")
+V = App.Vector
+
+# 1) Yagi-boom (langs X, gecentreerd op Y=0)
+basis = Part.makeBox(BOOM_LENGTE, BOOM_BREEDTE, PLAAT_DIKTE,
+                     V(0, -BOOM_BREEDTE / 2.0, 0))
+
+# 2) Elementen (dwars op de boom)
+for x, lengte in ELEMENTEN:
+    el = Part.makeBox(ELEMENT_BREEDTE, lengte, PLAAT_DIKTE,
+                      V(x - ELEMENT_BREEDTE / 2.0, -lengte / 2.0, 0))
+    basis = basis.fuse(el)
+
+# 3) Sleutelring-oog (massief; gat wordt op het eind geboord)
+oog = Part.makeCylinder(OOG_BUITEN_R, PLAAT_DIKTE, V(OOG_X, 0, 0))
+basis = basis.fuse(oog)
+
+# 4) WLD-letters als ShapeString, gecentreerd op de antenne
+try:
+    ss = Draft.make_shapestring(String=TEKST, FontFile=font,
+                                Size=LETTER_GROOTTE)
+except AttributeError:
+    ss = Draft.makeShapeString(String=TEKST, FontFile=font,
+                               Size=LETTER_GROOTTE)
+doc.recompute()
+lettervlak = ss.Shape.copy()
+doc.removeObject(ss.Name)
+bb = lettervlak.BoundBox
+midden_x = OOG_BUITEN_R + (BOOM_LENGTE - OOG_BUITEN_R) / 2.0
+lettervlak.translate(V(midden_x - (bb.XMin + bb.XMax) / 2.0,
+                       -(bb.YMin + bb.YMax) / 2.0, 0))
+
+# 4a) Onderste letterdeel (Z 0..PLAAT_DIKTE) hoort bij de basis:
+#     zo zijn de letters overal met plaat/elementen verbonden en
+#     ligt de kleursplitsing exact op plaathoogte.
+letters_onder = lettervlak.extrude(V(0, 0, PLAAT_DIKTE))
+basis = basis.fuse(letters_onder).removeSplitter()
+
+# 4b) Bovenste letterdeel (accentkleur)
+lettervlak_boven = lettervlak.copy()
+lettervlak_boven.translate(V(0, 0, PLAAT_DIKTE))
+opdruk = lettervlak_boven.extrude(V(0, 0, RELIEF)).removeSplitter()
+
+# 5) Ringgat boren
+gat = Part.makeCylinder(OOG_GAT_R, PLAAT_DIKTE + 1.0, V(OOG_X, 0, 0))
+basis = basis.cut(gat)
+
+# 6) Twee gekleurde objecten tonen
+obj_basis  = Part.show(basis, "Basis")
+obj_opdruk = Part.show(opdruk, "Opdruk")
+doc.recompute()
+
+if App.GuiUp:
+    import FreeCADGui
+    obj_basis.ViewObject.ShapeColor  = KLEUR_BASIS
+    obj_opdruk.ViewObject.ShapeColor = KLEUR_OPDRUK
+    FreeCADGui.ActiveDocument.ActiveView.viewAxonometric()
+    FreeCADGui.SendMsgToActiveView("ViewFit")
+
+# STL exporteren? Haal '#' weg en pas de paden aan:
+# import Mesh
+# Mesh.export([obj_basis, obj_opdruk], "C:/temp/WLD_sleutelhanger.stl")  # samen (kleurwissel op Z=3)
+# Mesh.export([obj_basis],  "C:/temp/WLD_basis.stl")                     # apart, multi-material
+# Mesh.export([obj_opdruk], "C:/temp/WLD_opdruk.stl")
+
+App.Console.PrintMessage("WLD-sleutelhanger v2 klaar: %.0f x %.0f x %.1f mm\n"
+                         % (basis.BoundBox.XLength,
+                            basis.BoundBox.YLength,
+                            PLAAT_DIKTE + RELIEF))

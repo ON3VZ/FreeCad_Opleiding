@@ -1,0 +1,137 @@
+# -*- coding: utf-8 -*-
+# =====================================================================
+#  WLD Morse-tag v2 — dog-tag met WLD-letters en ".-- .-.. -.."
+#  (WLD in morsecode) als verhoogde dots & dashes.
+#  FreeCAD-macro (1.x, Python-API; werkt ook headless).
+#  Twee gekleurde bodies (Plaat + Opdruk); parameters bovenaan.
+#  Richtwaarden zijn printer-/materiaal-afhankelijk: kalibreer zelf.
+# =====================================================================
+
+import FreeCAD as App
+import Part
+import Draft
+import os
+
+# ---------------- Parameters (mm) ----------------
+TAG_L, TAG_H   = 62.0, 26.0   # plaat
+HOEK_R         = 7.0          # hoekafronding
+PLAAT_DIKTE    = 3.2
+RELIEF         = 1.8          # letters/morse steken zoveel uit
+TOP_AFKANTING  = 0.6          # sierafkanting bovenrand plaat (0 = uit)
+
+GAT_X, GAT_R   = 7.0, 2.25    # sleutelringgat O4,5 (print vaak ondermaats)
+
+TEKST          = "WLD"
+LETTER_GROOTTE = 15.0
+LETTERS_CY     = 3.6          # verticaal middelpunt letterrij
+
+# Morse: W=.-- L=.-.. D=-..
+MORSE          = [".--", ".-..", "-.."]
+DOT_D          = 1.8          # diameter punt
+DASH_L         = 4.2          # lengte streep (hoogte = DOT_D)
+SYM_GAP        = 1.2          # ruimte tussen symbolen
+LETTER_GAP     = 3.5          # ruimte tussen letters
+MORSE_CY       = -7.2         # verticaal middelpunt morse-rij
+
+# Kleuren (R, G, B — waarden 0..1)
+KLEUR_PLAAT    = (0.10, 0.21, 0.36)   # navy
+KLEUR_OPDRUK   = (0.96, 0.68, 0.33)   # amber/geel-oranje
+
+FONT_KANDIDATEN = [
+    "C:/Windows/Fonts/arialbd.ttf",
+    "C:/Windows/Fonts/verdanab.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+]
+
+# ---------------- Opbouw ----------------
+font = next((f for f in FONT_KANDIDATEN if os.path.exists(f)), None)
+if font is None:
+    raise RuntimeError("Geen lettertype gevonden - vul FONT_KANDIDATEN aan.")
+
+# Oud resultaat sluiten zodat je vlot kunt itereren
+for naam in list(App.listDocuments()):
+    if naam.startswith("WLD_morse_tag"):
+        App.closeDocument(naam)
+
+doc = App.newDocument("WLD_morse_tag")
+V = App.Vector
+CONTENT_CX = (12.0 + TAG_L - 3.0) / 2.0   # midden contentzone
+
+# 1) Plaat met afgeronde hoeken, sierafkanting en ringgat
+plaat = Part.makeBox(TAG_L, TAG_H, PLAAT_DIKTE, V(0, -TAG_H / 2.0, 0))
+vert = [e for e in plaat.Edges
+        if abs(abs(e.tangentAt(e.FirstParameter).z) - 1.0) < 1e-6]
+plaat = plaat.makeFillet(HOEK_R, vert)
+if TOP_AFKANTING > 0:
+    try:
+        top = [e for e in plaat.Edges
+               if all(abs(v.Point.z - PLAAT_DIKTE) < 1e-6 for v in e.Vertexes)]
+        plaat = plaat.makeChamfer(TOP_AFKANTING, top)
+    except Exception:
+        App.Console.PrintWarning("Afkanting bovenrand overgeslagen.\n")
+gat = Part.makeCylinder(GAT_R, PLAAT_DIKTE + 1.0, V(GAT_X, 0, 0))
+plaat = plaat.cut(gat)
+
+# 2) WLD-letters (op de plaat: Z = PLAAT_DIKTE .. PLAAT_DIKTE+RELIEF)
+try:
+    ss = Draft.make_shapestring(String=TEKST, FontFile=font,
+                                Size=LETTER_GROOTTE)
+except AttributeError:
+    ss = Draft.makeShapeString(String=TEKST, FontFile=font,
+                               Size=LETTER_GROOTTE)
+doc.recompute()
+vlak = ss.Shape.copy()
+doc.removeObject(ss.Name)
+bb = vlak.BoundBox
+vlak.translate(V(CONTENT_CX - (bb.XMin + bb.XMax) / 2.0,
+                 LETTERS_CY - (bb.YMin + bb.YMax) / 2.0,
+                 PLAAT_DIKTE))
+opdruk = vlak.extrude(V(0, 0, RELIEF))
+
+# 3) Morse-rij (zelfde hoogte als de letters)
+def punt(cx, cy):
+    return Part.makeCylinder(DOT_D / 2.0, RELIEF, V(cx, cy, PLAAT_DIKTE))
+
+def streep(cx, cy):
+    l, h = DASH_L, DOT_D
+    kern = Part.makeBox(l - h, h, RELIEF,
+                        V(cx - (l - h) / 2.0, cy - h / 2.0, PLAAT_DIKTE))
+    e1 = Part.makeCylinder(h / 2.0, RELIEF, V(cx - (l - h) / 2.0, cy, PLAAT_DIKTE))
+    e2 = Part.makeCylinder(h / 2.0, RELIEF, V(cx + (l - h) / 2.0, cy, PLAAT_DIKTE))
+    return kern.fuse(e1).fuse(e2)
+
+symbolen, x = [], 0.0
+for i, code in enumerate(MORSE):
+    for j, s in enumerate(code):
+        w = DOT_D if s == "." else DASH_L
+        symbolen.append((s, x + w / 2.0))
+        x += w + (SYM_GAP if j < len(code) - 1 else 0)
+    if i < len(MORSE) - 1:
+        x += LETTER_GAP
+offset = CONTENT_CX - x / 2.0
+for s, cx in symbolen:
+    vorm = punt(offset + cx, MORSE_CY) if s == "." else streep(offset + cx, MORSE_CY)
+    opdruk = opdruk.fuse(vorm)
+opdruk = opdruk.removeSplitter()
+
+# 4) Twee gekleurde objecten tonen
+obj_plaat  = Part.show(plaat, "Plaat")
+obj_opdruk = Part.show(opdruk, "Opdruk")
+doc.recompute()
+
+if App.GuiUp:
+    import FreeCADGui
+    obj_plaat.ViewObject.ShapeColor  = KLEUR_PLAAT
+    obj_opdruk.ViewObject.ShapeColor = KLEUR_OPDRUK
+    FreeCADGui.ActiveDocument.ActiveView.viewAxonometric()
+    FreeCADGui.SendMsgToActiveView("ViewFit")
+
+# STL exporteren? Haal '#' weg en pas de paden aan:
+# import Mesh
+# Mesh.export([obj_plaat, obj_opdruk], "C:/temp/WLD_morse_tag.stl")   # samen (kleurwissel op Z=3,2)
+# Mesh.export([obj_plaat],  "C:/temp/WLD_plaat.stl")                  # apart, multi-material
+# Mesh.export([obj_opdruk], "C:/temp/WLD_opdruk.stl")
+
+App.Console.PrintMessage("WLD Morse-tag v2 klaar: %.0f x %.0f x %.1f mm\n"
+                         % (TAG_L, TAG_H, PLAAT_DIKTE + RELIEF))
