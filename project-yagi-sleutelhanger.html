@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project · WLD Yagi-sleutelhanger — FreeCAD voor Radioamateurs</title>
+<link rel="stylesheet" href="assets/css/freecad.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="header-logo"><a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span class="header-logo-wld">WLD</span><div class="header-logo-sep"></div></a>
+  <span class="header-logo-title"><span class="lang-block active" data-lang="nl">FreeCAD voor Radioamateurs</span><span class="lang-block" data-lang="fr">FreeCAD pour Radioamateurs</span><span class="lang-block" data-lang="en">FreeCAD for Radio Amateurs</span></span></div>
+  <div class="header-center"><div class="header-progress-wrap"><div class="header-progress-label"><span data-i18n="progress">Voortgang</span><span class="header-progress-done">0 / 23</span></div><div class="header-progress-track"><div class="header-progress-fill" style="width:0%"></div></div></div></div>
+  <div class="header-right"><span class="header-callsign" id="hCallsign">—</span><div class="lang-switcher"><button class="lang-switch-btn active" data-lang="nl">NL</button><button class="lang-switch-btn" data-lang="fr">FR</button><button class="lang-switch-btn" data-lang="en">EN</button></div><button class="menu-toggle" id="menu-toggle">☰</button></div>
+</header>
+<nav class="app-sidebar"></nav>
+<main class="app-main"><div class="main-inner">
+
+<div class="chapter-header">
+  <div class="ch-header-meta">
+    <div class="ch-breadcrumb"><a href="index.html"><span class="lang-block active" data-lang="nl">Overzicht</span><span class="lang-block" data-lang="fr">Aperçu</span><span class="lang-block" data-lang="en">Overview</span></a><span>›</span><span>Projectoefeningen</span></div>
+    <span class="ch-badge ch-badge-num">P01</span><span class="ch-badge ch-badge-level basis">Basis → Medior</span><span class="ch-badge ch-badge-level medior">only in Dutch</span>
+  </div>
+  <h1>Project: WLD-sleutelhanger met Yagi-antenne</h1>
+  <p class="intro">Een sleutelhanger waarin het silhouet van een Yagi-antenne de drager vormt van grote WLD-letters. Elke radioamateur herkent de Yagi meteen — dat is precies de bedoeling. Je oefent hier alles uit H01–H06 in één concreet, printbaar resultaat: schetsen met constraints, Pad, tekst met een ShapeString en tweekleurig printen.</p>
+  <svg class="ch-header-waves" viewBox="0 0 820 44" preserveAspectRatio="none"><path class="rf-w3" fill="none" stroke="#00B4CC" stroke-width="1" d="M0,28 Q41,34 82,28 Q123,22 164,28 Q205,34 246,28 Q287,22 328,28 Q369,34 410,28 Q451,22 492,28 Q533,34 574,28 Q615,22 656,28 Q697,34 738,28 Q779,22 820,26"/><path class="rf-w1" fill="none" stroke="#00B4CC" stroke-width="1.8" d="M0,34 Q20,40 41,34 Q61,28 82,34 Q102,40 123,34 Q143,28 164,34 Q184,40 205,34 Q225,28 246,34 Q266,40 287,34 Q307,28 328,34 Q348,40 369,34 Q389,28 410,34 Q430,40 451,34 Q471,28 492,34 Q512,40 533,34 Q553,28 574,34 Q594,40 615,34 Q635,28 656,34 Q676,40 697,34 Q717,28 738,34 Q758,40 779,34 Q799,28 820,32"/></svg>
+</div>
+
+<div class="chapter-body">
+
+<div class="callout callout-warning">
+  <div class="callout-header">🌐 <span class="lang-block active" data-lang="nl">Enkel in het Nederlands</span><span class="lang-block" data-lang="fr">Uniquement en néerlandais</span><span class="lang-block" data-lang="en">Only in Dutch</span></div>
+  <p><span class="lang-block active" data-lang="nl">Deze projectoefening is voorlopig enkel in het Nederlands beschikbaar.</span><span class="lang-block" data-lang="fr">Cet exercice de projet n'est pour l'instant disponible qu'en néerlandais.</span><span class="lang-block" data-lang="en">This project exercise is currently only available in Dutch.</span></p>
+</div>
+
+<p><strong>Niveau:</strong> basis → medior · <strong>Workbenches:</strong> Part Design, Sketcher, Draft, Part · <strong>FreeCAD:</strong> 1.1.1 · <strong>Richtduur:</strong> 60–90 min</p>
+
+<div class="figure screencap">
+  <span class="screencap-badge">eindresultaat · 1.1.1</span>
+  <img src="assets/img/projecten/yagi-eindresultaat.png" alt="Het eindresultaat: WLD-letters op een Yagi-silhouet, in kleur" loading="lazy">
+  <div class="figcaption"><span class="fignum">Fig. P1.1</span>Het eindresultaat: de WLD-letters "surfen" op een Yagi-antenne, met sleutelringoog. Basis in navy, letters in amber.</div>
+</div>
+
+<div class="leerdoelen">
+  <div class="leerdoelen-header"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="objectives">Na dit hoofdstuk kun je</span></div>
+  <ul>
+    <li>een schets met meerdere rechthoeken volledig bepalen met symmetrie-, gelijkheids- en maatconstraints</li>
+    <li>een schets omzetten naar een 3D-vorm met Pad en een gat maken met Pocket</li>
+    <li>tekst als 3D-vorm maken met een ShapeString en Part Extrude</li>
+    <li>uitleggen waarom dit ontwerp zonder support printbaar is en waar de kleurgrens ligt</li>
+  </ul>
+</div>
+
+<h2><span class="section-num">01</span>Wat ga je maken?</h2>
+<p>Een hanger van ±60 × 34 mm: een Yagi-silhouet (boom, reflector, gevoed element en drie directors) met daarop grote WLD-letters die 2 mm boven de basis uitsteken. De basis is 3 mm dik; de letters lopen door tot 5 mm, zodat je in de slicer een kleurwissel op Z&nbsp;=&nbsp;3&nbsp;mm kunt zetten.</p>
+
+<h3>Maattabel</h3>
+<table>
+<tr><th>Onderdeel</th><th>Maat</th></tr>
+<tr><td>Boom (horizontale balk)</td><td>60 × 4 mm</td></tr>
+<tr><td>Dikte antenne-basis</td><td>3 mm</td></tr>
+<tr><td>Elementbreedte (alle 5)</td><td>3 mm</td></tr>
+<tr><td>Reflector (x = 7)</td><td>lengte 34 mm</td></tr>
+<tr><td>Gevoed element (x = 19)</td><td>lengte 28 mm</td></tr>
+<tr><td>Director 1 (x = 31)</td><td>lengte 24 mm</td></tr>
+<tr><td>Director 2 (x = 43)</td><td>lengte 21 mm</td></tr>
+<tr><td>Director 3 (x = 55)</td><td>lengte 18 mm</td></tr>
+<tr><td>Oog: buiten / gat</td><td>Ø10 / Ø4,5 mm, middelpunt x = −1</td></tr>
+<tr><td>Letters "WLD"</td><td>tekengrootte 20 (vet), totale hoogte 5 mm</td></tr>
+</table>
+<p>De x-posities zijn telkens het <strong>middelpunt</strong> van een element, gemeten vanaf het linkeruiteinde van de boom.</p>
+
+<div class="callout callout-shack">
+  <div class="callout-header">📻 <span data-i18n="shack_title">In de shack</span></div>
+  <p>Bij een echte Yagi is de reflector het langste element en worden de directors naar voren toe korter. We tekenen geen elektrisch correcte antenne — het is een sleutelhanger — maar het silhouet moet kloppen, anders "leest" een collega-amateur het niet als Yagi.</p>
+</div>
+
+<h2><span class="section-num">02</span>Deel 1 — Document, Body en de Yagi-schets</h2>
+
+<div class="howto">
+  <div class="howto-h">⚙️ Zo doe je het in FreeCAD 1.1.1</div>
+  <div class="howto-body">
+    <p><strong>Workbench:</strong> <span class="path">Part Design</span> voor Body, schets, Pad en Pocket — precies zoals in H04–H06. Voor de letters gebruik je verderop <span class="path">Draft</span> (ShapeString) en <span class="path">Part</span> (Extrude).</p>
+  </div>
+</div>
+
+<ol class="stappenplan">
+  <li><span class="wb">PD</span>Nieuw document → werkbank <strong>Part Design</strong> → <strong>Body maken</strong>.<span class="waarom">Waarom: de Body is de container waarin de hele antenne-basis als één samenhangend massief groeit (H04).</span></li>
+  <li><span class="wb">SK</span><strong>Schets maken</strong> op het <strong>XY-vlak</strong>.<span class="waarom">Waarom: het XY-vlak is straks de bouwplaat van de printer. De plattegrond dáár schetsen = automatisch de juiste printoriëntatie, plat en zonder support.</span></li>
+  <li><span class="wb">SK</span>Teken een <strong>rechthoek</strong> rechts van de oorsprong: de boom. Ruw is goed genoeg — maten komen zo.<span class="waarom">Waarom: eerst de vorm, dan de maten via constraints. Dat is parametrisch denken (H04/H05).</span></li>
+  <li><span class="wb">SK</span>Leg de boom <strong>symmetrisch om de X-as</strong> (symmetrieconstraint, of twee gelijke afstanden van 2 mm tot de X-as). Bemaat: lengte <strong>60</strong>, hoogte <strong>4</strong>, linkerzijde op <strong>x = 0</strong>.<span class="waarom">Waarom: de hele hanger is spiegelsymmetrisch rond de boomas. Met y = 0 als middellijn positioneer je élk element straks met dezelfde eenvoudige logica.</span></li>
+  <li><span class="wb">SK</span>Teken <strong>vijf staande rechthoeken</strong> die de boom kruisen, ruwweg op de posities uit de maattabel — bewust langer dan de boom breed is.<span class="waarom">Waarom: overlappende vormen versmelten bij het padden tot één massief. Overlap is hier je vriend: niets komt los te staan.</span></li>
+  <li><span class="wb">SK</span>Maak één element <strong>3 mm</strong> breed en de andere vier <strong>gelijk</strong> (gelijkheidsconstraint, H08).<span class="waarom">Waarom: wil je later een andere elementbreedte, dan wijzig je één maat en volgen de andere vier vanzelf.</span></li>
+  <li><span class="wb">SK</span>Leg elk element <strong>symmetrisch om de X-as</strong> en bemaat de lengtes: 34, 28, 24, 21, 18 mm.</li>
+  <li><span class="wb">SK</span>Positioneer horizontaal: maatconstraint van de linkerzijde van elk element tot de Y-as: 5,5 / 17,5 / 29,5 / 41,5 / 53,5 mm (= middelpunt − 1,5).</li>
+  <li><span class="wb">SK</span>Werk door tot de schets <strong>volledig bepaald</strong> is (H05) en sluit ze.<span class="waarom">Waarom: een onderbepaalde schets kan "verschuiven" bij latere wijzigingen. Volledig bepaald = voorspelbaar en robuust.</span></li>
+  <li><span class="wb">PD</span><strong>Pad</strong>, lengte <strong>3 mm</strong>.<span class="waarom">Waarom 3 mm: dun genoeg voor een lichte hanger, dik genoeg om stevig te zijn — bij 0,2 mm-lagen vijftien volle lagen (richtwaarde, H16).</span></li>
+</ol>
+
+<div class="figure">
+  <img src="assets/img/projecten/yagi-layout.png" alt="Bovenaanzicht van het ontwerp: blauw de basis van 3 mm, rood de letters" loading="lazy">
+  <div class="figcaption"><span class="fignum">Fig. P1.2</span>Zo moet je plattegrond eruitzien (blauw = basis van 3 mm, rood = de letters die er straks bovenop komen). Controleer vooral dat élke letter straks minstens één element of de boom kruist.</div>
+</div>
+
+<h2><span class="section-num">03</span>Deel 2 — Het sleutelringoog</h2>
+<ol class="stappenplan">
+  <li><span class="wb">SK</span>Nieuwe schets op het <strong>XY-vlak</strong> (niet op het bovenvlak van de boom).<span class="waarom">Waarom: een schets op een origineel vlak i.p.v. een gemaakt vlak is robuuster tegen het topological naming-probleem (H19).</span></li>
+  <li><span class="wb">SK</span>Teken één <strong>cirkel</strong>, middelpunt op de X-as. Bemaat: straal <strong>5</strong>, middelpunt op <strong>x = −1</strong>. Volledig bepalen, sluiten.</li>
+  <li><span class="wb">PD</span><strong>Pad</strong>, 3 mm. Het oog overlapt de boom 4 mm en versmelt ermee.</li>
+  <li><span class="wb">SK</span>Nieuwe schets op het XY-vlak: cirkel met zelfde middelpunt (x = −1), straal <strong>2,25</strong>. Sluiten → <strong>Pocket</strong>, optie <strong>door alles</strong> (H09).<span class="waarom">Waarom Ø4,5: een sleutelring is ±3–4 mm dik draad én verticale gaten printen bijna altijd iets ondermaats (H16). Ruim tekenen, printen, meten, bijstellen.</span></li>
+</ol>
+
+<h2><span class="section-num">04</span>Deel 3 — De WLD-letters</h2>
+<p>De letters maken we bewust <strong>buiten</strong> de Body, als apart object: zo krijgen ze een eigen kleur en kun je ze apart exporteren voor tweekleurig printen (vergelijk H15 en H17).</p>
+<ol class="stappenplan">
+  <li><span class="wb">DR</span>Werkbank <strong>Draft</strong> → maak een <strong>ShapeString</strong> (H17): tekst <strong>WLD</strong>, grootte <strong>20</strong>, vet lettertype via het pad naar een .ttf, op Windows bv. <span class="path">C:\Windows\Fonts\arialbd.ttf</span> (Arial Bold).<span class="waarom">Waarom vet: dunne letterlijnen worden fragiele wandjes van één à twee printbanen. Vet = stevig en strak printbaar.</span></li>
+  <li><span class="wb">DR</span>Zet de <strong>Placement</strong> (eigenschappen, Position) zó dat de tekst gecentreerd op de antenne ligt. Startpunt: <strong>x ≈ 9, y ≈ −7</strong>. Neem het bovenaanzicht en schuif bij tot <strong>élke letter</strong> de boom of minstens één element kruist.<span class="waarom">Waarom: elke letter wordt straks een massief deel. Een letter die nergens de basis overlapt, valt na het printen letterlijk los.</span></li>
+  <li><span class="wb">PT</span>Werkbank <strong>Part</strong> → selecteer de ShapeString → <strong>Extruderen</strong>: richting Z, lengte <strong>5 mm</strong>, als <strong>massief</strong>.<span class="waarom">Waarom 5 en niet 2: de basis is open (gaten tussen de elementen). Letters die pas op 3 mm beginnen, zweven daar in de lucht — onprintbaar zonder support. Van bouwplaat (Z=0) tot 5 mm = overal verbonden én 2 mm reliëf.</span></li>
+  <li><span class="wb">PT</span>Verberg de oorspronkelijke ShapeString (selecteer, <span class="kbd">spatiebalk</span>).</li>
+</ol>
+
+<h2><span class="section-num">05</span>Deel 4 — Kleuren en eindcontrole</h2>
+<ol class="stappenplan">
+  <li><span class="wb">PD</span>Geef de <strong>Body navy</strong> en het <strong>letterobject amber</strong>: rechtsklik op het object in de modelboom → uiterlijk/kleur aanpassen.<span class="waarom">Waarom: de kleurgrens documenteert je printplan — iedereen die het bestand opent ziet meteen waar kleur 1 stopt en kleur 2 begint.</span></li>
+  <li><span class="wb">PD</span>Draai het model rond en controleer: alle elementen vast aan de boom, elke letter overlapt de basis, het gat is open, niets zweeft.</li>
+</ol>
+
+<h2><span class="section-num">06</span>Naar de printer</h2>
+<div class="callout callout-tip">
+  <div class="callout-header">🖨️ <span data-i18n="print_title">Voor de print</span></div>
+  <p>Plat printen zoals gemodelleerd, geen support. <strong>Eén extruder:</strong> exporteer beide objecten samen als STL (H23) en zet in de slicer een <strong>kleurwissel op Z = 3 mm</strong>. <strong>Multi-material:</strong> exporteer Body en letters elk als eigen STL en wijs per deel een kleur toe. Alle getallen zijn richtwaarden — kalibreer op je eigen printer.</p>
+</div>
+
+<h2><span class="section-num">07</span><span data-i18n="mistakes_title">Veelgemaakte fouten</span></h2>
+<ul>
+  <li><strong>Schets niet volledig bepaald</strong> → het model vervormt onverwacht bij een latere wijziging. Elke vrijheidsgraad oplossen vóór je de schets sluit (H05).</li>
+  <li><strong>Letters beginnen op Z = 3 in plaats van Z = 0</strong> → losse, zwevende letterdelen tussen de elementen. Altijd vanaf de bouwplaat extruderen.</li>
+  <li><strong>Letter raakt geen enkel element</strong> → los onderdeel na het printen. Bovenaanzicht nemen en verschuiven tot alles kruist.</li>
+  <li><strong>Gat exact op ringdikte getekend</strong> → ring past niet: gaten printen ondermaats (H16). Ruimer tekenen en kalibreren.</li>
+  <li><strong>Elementen te fijn</strong> (&lt; 2 mm breed) → uiteinden breken af aan de sleutelbos. 3 mm breed bij 3 mm dik is het praktische minimum voor dit open ontwerp.</li>
+</ul>
+
+<div class="callout callout-key memory-box">
+  <div class="callout-header">🧠 <span data-i18n="memory_title">Onthoud dit</span></div>
+  <ul>
+    <li>Bij een <strong>open basis</strong> extrudeer je reliëf altijd <strong>vanaf de bouwplaat</strong> — anders zweeft het.</li>
+    <li>Eén maat + <strong>gelijkheidsconstraints</strong> verslaat vijf keer dezelfde maat intypen.</li>
+    <li>Elke letter moet de basis <strong>overlappen</strong>: overlap = mechanische verbinding.</li>
+    <li>Kleurgrens = <strong>Z-hoogte van de basis</strong>; dat regel je in de slicer, niet in FreeCAD.</li>
+  </ul>
+</div>
+
+<div class="doe-opdracht">
+  <div class="do-head">🛠️ Uitbreidingsopdrachten</div>
+  <p><strong>1.</strong> Vervang WLD door je <strong>eigen roepletters</strong> en pas de boomlengte aan tot het past. <strong>2.</strong> Maak director 3 langer door één maatconstraint te wijzigen en kijk hoe het model volgt — dát is parametrisch ontwerpen (H07). <strong>3.</strong> Voeg een zesde element toe: welke stappen herhaal je?</p>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-header">⬇️ Downloads</div>
+  <p>Klaar-terwijl-je-kijkt: een macro die dit hele model parametrisch opbouwt (Macro → Macro's… → uitvoeren), plus de printinstructie. <a href="downloads/WLD_sleutelhanger.FCMacro" download>WLD_sleutelhanger.FCMacro</a> · <a href="downloads/WLD_printinstructie.md" download>Printinstructie</a></p>
+</div>
+
+<div class="chapter-nav-footer"><a class="ch-nav-btn" href="index.html"><span data-i18n="overview">Overzicht</span></a><a class="ch-nav-btn" href="project-morse-tag.html">Project: Morse-tag →</a></div>
+
+</div></div></main>
+<footer class="app-footer"><div class="footer-logo-row"><span class="footer-wld">WLD</span><div class="footer-sep"></div><div class="footer-info">ON6WL · Waaslandse Radio Amateurs · <a href="https://on6wl.be">on6wl.be</a></div></div><div class="footer-right">FreeCAD-cursus · 1.1.1 · <a href="bronnen.html">Bronnen</a></div></footer>
+<script src="assets/js/app.js"></script><script src="assets/js/sidebar.js"></script>
+<script>document.addEventListener('DOMContentLoaded',()=>{ renderSidebar('p01'); });</script>
+</body></html>

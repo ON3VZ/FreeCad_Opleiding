@@ -31,6 +31,16 @@ function renderSidebar(activeId){
     });
     html+=`</ul></div>`;
   });
+  const PROJECTS=[{id:'p01',file:'project-yagi-sleutelhanger.html'},{id:'p02',file:'project-morse-tag.html'}];
+  const PROJECT_TITLES={nl:{p01:'WLD Yagi-sleutelhanger',p02:'WLD Morse-tag'},fr:{p01:'Porte-cl\u00e9s Yagi WLD',p02:'Morse-tag WLD'},en:{p01:'WLD Yagi keychain',p02:'WLD Morse tag'}};
+  const projLabel={nl:'Projectoefeningen',fr:'Exercices projet',en:'Project exercises'}[lang]||'Projectoefeningen';
+  html+=`<div class="sidebar-section"><div class="sidebar-section-label" style="color:var(--teal);border-color:rgba(0,180,204,.3)"><span class="sidebar-section-num" style="background:rgba(0,180,204,.12);color:var(--teal)">P</span>${projLabel}</div><ul class="sidebar-nav">`;
+  PROJECTS.forEach((p,i)=>{
+    const t=(PROJECT_TITLES[lang]||PROJECT_TITLES.nl)[p.id];
+    const isActive=p.id===activeId;
+    html+=`<li><a href="${base}${p.file}"${isActive?' class="active"':''}><span class="nav-ch-num">P${i+1}</span><span>${t} <em style="font-size:.72em;opacity:.7">(only in Dutch)</em></span></a></li>`;
+  });
+  html+=`</ul></div>`;
   const refLabel={nl:'Sneltoetsen-spiekfiche',fr:'Aide-mémoire raccourcis',en:'Shortcuts cheat sheet'}[lang]||'Sneltoetsen';
   html+=`<div class="sidebar-section"><div class="sidebar-section-label" style="color:var(--teal);border-color:rgba(0,180,204,.3)"><span class="sidebar-section-num" style="background:rgba(0,180,204,.12);color:var(--teal)">⌨</span>Referentie</div><ul class="sidebar-nav"><li><a href="${base}sneltoetsen.html"><span class="nav-ch-num" style="color:var(--teal)">⌨</span><span>${refLabel}</span></a></li></ul></div>`;
   const srcLabel={nl:'Bronnen & licenties',fr:'Sources & licences',en:'Sources & licences'}[lang]||'Bronnen';

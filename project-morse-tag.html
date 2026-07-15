@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project · WLD Morse-tag — FreeCAD voor Radioamateurs</title>
+<link rel="stylesheet" href="assets/css/freecad.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="header-logo"><a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span class="header-logo-wld">WLD</span><div class="header-logo-sep"></div></a>
+  <span class="header-logo-title"><span class="lang-block active" data-lang="nl">FreeCAD voor Radioamateurs</span><span class="lang-block" data-lang="fr">FreeCAD pour Radioamateurs</span><span class="lang-block" data-lang="en">FreeCAD for Radio Amateurs</span></span></div>
+  <div class="header-center"><div class="header-progress-wrap"><div class="header-progress-label"><span data-i18n="progress">Voortgang</span><span class="header-progress-done">0 / 23</span></div><div class="header-progress-track"><div class="header-progress-fill" style="width:0%"></div></div></div></div>
+  <div class="header-right"><span class="header-callsign" id="hCallsign">—</span><div class="lang-switcher"><button class="lang-switch-btn active" data-lang="nl">NL</button><button class="lang-switch-btn" data-lang="fr">FR</button><button class="lang-switch-btn" data-lang="en">EN</button></div><button class="menu-toggle" id="menu-toggle">☰</button></div>
+</header>
+<nav class="app-sidebar"></nav>
+<main class="app-main"><div class="main-inner">
+
+<div class="chapter-header">
+  <div class="ch-header-meta">
+    <div class="ch-breadcrumb"><a href="index.html"><span class="lang-block active" data-lang="nl">Overzicht</span><span class="lang-block" data-lang="fr">Aperçu</span><span class="lang-block" data-lang="en">Overview</span></a><span>›</span><span>Projectoefeningen</span></div>
+    <span class="ch-badge ch-badge-num">P02</span><span class="ch-badge ch-badge-level medior">Medior</span><span class="ch-badge ch-badge-level medior">only in Dutch</span>
+  </div>
+  <h1>Project: WLD Morse-tag</h1>
+  <p class="intro">Een massieve dog-tag met grote WLD-letters en — het insider-detail — de morsecode van WLD (<strong>·−−&nbsp;·−··&nbsp;−··</strong>) als verhoogde punten en strepen. Wie geen morse kent, ziet decoratie; een radioamateur leest gewoon "WLD". Dit project bouwt voort op de Yagi-sleutelhanger en voegt Pocket, Chamfer, hoekafronding in de schets en het positioneren van een schets op hoogte toe.</p>
+  <svg class="ch-header-waves" viewBox="0 0 820 44" preserveAspectRatio="none"><path class="rf-w3" fill="none" stroke="#00B4CC" stroke-width="1" d="M0,28 Q41,34 82,28 Q123,22 164,28 Q205,34 246,28 Q287,22 328,28 Q369,34 410,28 Q451,22 492,28 Q533,34 574,28 Q615,22 656,28 Q697,34 738,28 Q779,22 820,26"/><path class="rf-w1" fill="none" stroke="#00B4CC" stroke-width="1.8" d="M0,34 Q20,40 41,34 Q61,28 82,34 Q102,40 123,34 Q143,28 164,34 Q184,40 205,34 Q225,28 246,34 Q266,40 287,34 Q307,28 328,34 Q348,40 369,34 Q389,28 410,34 Q430,40 451,34 Q471,28 492,34 Q512,40 533,34 Q553,28 574,34 Q594,40 615,34 Q635,28 656,34 Q676,40 697,34 Q717,28 738,34 Q758,40 779,34 Q799,28 820,32"/></svg>
+</div>
+
+<div class="chapter-body">
+
+<div class="callout callout-warning">
+  <div class="callout-header">🌐 <span class="lang-block active" data-lang="nl">Enkel in het Nederlands</span><span class="lang-block" data-lang="fr">Uniquement en néerlandais</span><span class="lang-block" data-lang="en">Only in Dutch</span></div>
+  <p><span class="lang-block active" data-lang="nl">Deze projectoefening is voorlopig enkel in het Nederlands beschikbaar.</span><span class="lang-block" data-lang="fr">Cet exercice de projet n'est pour l'instant disponible qu'en néerlandais.</span><span class="lang-block" data-lang="en">This project exercise is currently only available in Dutch.</span></p>
+</div>
+
+<p><strong>Niveau:</strong> medior · <strong>Workbenches:</strong> Part Design, Sketcher, Draft, Part · <strong>FreeCAD:</strong> 1.1.1 · <strong>Richtduur:</strong> 60–90 min · <strong>Voorkennis:</strong> het <a href="project-yagi-sleutelhanger.html">Yagi-project</a> of H01–H10</p>
+
+<div class="figure screencap">
+  <span class="screencap-badge">eindresultaat · 1.1.1</span>
+  <img src="assets/img/projecten/morsetag-eindresultaat.png" alt="Het eindresultaat: navy dog-tag met amber WLD-letters en morse-rij" loading="lazy">
+  <div class="figcaption"><span class="fignum">Fig. P2.1</span>Het eindresultaat: plaat met sierafkanting, WLD-letters en de morse-rij in reliëf. Plaat navy, opdruk amber.</div>
+</div>
+
+<div class="leerdoelen">
+  <div class="leerdoelen-header"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="objectives">Na dit hoofdstuk kun je</span></div>
+  <ul>
+    <li>een afgeronde rechthoek schetsen en volledig bepalen</li>
+    <li>een rand afwerken met Chamfer en uitleggen waarom dat ook print-technisch nut heeft</li>
+    <li>herhaalde vormen (punten en strepen) efficiënt schetsen met gelijkheidsconstraints</li>
+    <li>een tweekleurig printplan opzetten met aparte objecten</li>
+  </ul>
+</div>
+
+<h2><span class="section-num">01</span>Wat ga je maken?</h2>
+<p>Een tag van <strong>62 × 26 × 3,2 mm</strong> met hoeken R7, een sierafkanting van 0,6 mm langs de bovenrand, een sleutelringgat Ø4,5 op (x=7, y=0), WLD-letters (tekengrootte 15, vet) en de morse-rij. Letters en morse steken <strong>1,8 mm</strong> boven de plaat uit. Doordat de plaat massief is, is deze hanger vrijwel onverwoestbaar.</p>
+
+<h3>Maattabel morse-rij</h3>
+<table>
+<tr><th>Onderdeel</th><th>Maat</th></tr>
+<tr><td>Punt</td><td>Ø 1,8 mm</td></tr>
+<tr><td>Streep (afgeronde uiteinden)</td><td>4,2 × 1,8 mm</td></tr>
+<tr><td>Ruimte tussen symbolen</td><td>1,2 mm</td></tr>
+<tr><td>Ruimte tussen letters</td><td>3,5 mm</td></tr>
+<tr><td>Middellijn van de rij</td><td>y = −7,2</td></tr>
+<tr><td>Totale rijbreedte</td><td>43 mm (begin ±x = 14)</td></tr>
+</table>
+<p><strong>Spiekbriefje:</strong> W = <strong>·−−</strong>, L = <strong>·−··</strong>, D = <strong>−··</strong> — samen 6 punten en 4 strepen.</p>
+
+<div class="callout callout-shack">
+  <div class="callout-header">📻 <span data-i18n="shack_title">In de shack</span></div>
+  <p>In echte morse is een streep drie punten lang; dat respecteren we visueel bijna (4,2 ≈ 2,3 × 1,8 — iets korter omwille van de breedte). Belangrijker voor de print: een punt van Ø1,8 mm is bij een 0,4 mm-nozzle ruim vier printbanen breed — klein genoeg om elegant te zijn, groot genoeg om betrouwbaar te printen (richtwaarde, H16).</p>
+</div>
+
+<h2><span class="section-num">02</span>Deel 1 — De plaat</h2>
+<ol class="stappenplan">
+  <li><span class="wb">PD</span>Nieuw document → <strong>Part Design</strong> → <strong>Body maken</strong> → <strong>Schets maken</strong> op het <strong>XY-vlak</strong> — exact zoals in het Yagi-project.</li>
+  <li><span class="wb">SK</span>Teken een rechthoek rond de oorsprong. Bemaat: <strong>62 × 26</strong>, symmetrisch om de X-as, linkerzijde op <strong>x = 0</strong>.<span class="waarom">Waarom symmetrisch: letters (+3,6) en morse-rij (−7,2) worden t.o.v. de middellijn geplaatst — met y = 0 als midden wordt elke verticale positie een eenvoudig getal.</span></li>
+  <li><span class="wb">SK</span>Rond de vier hoeken af op <strong>R 7</strong> met het afrondingsgereedschap van de Sketcher; bemaat één afronding en maak de andere drie <strong>gelijk</strong>.<span class="waarom">Waarom in de schets en niet in 3D: een 3D-afronding verwijst naar randen van het massief, en die verwijzingen kunnen breken bij wijzigingen (topological naming, H19). Wat in de schets kan, doe je in de schets.</span></li>
+  <li><span class="wb">PD</span>Volledig bepalen, sluiten, <strong>Pad 3,2 mm</strong>.</li>
+</ol>
+
+<h2><span class="section-num">03</span>Deel 2 — Ringgat en sierafkanting</h2>
+<ol class="stappenplan">
+  <li><span class="wb">SK</span>Nieuwe schets op het XY-vlak: cirkel, middelpunt op de X-as, straal <strong>2,25</strong>, middelpunt op <strong>x = 7</strong>. Sluiten → <strong>Pocket, door alles</strong>.<span class="waarom">Waarom een aparte Pocket en geen tweede cirkel in de plaatschets: zo is het gat een eigen, herkenbare stap in de modelboom — wie het gat later wil verplaatsen weet meteen waar.</span></li>
+  <li><span class="wb">PD</span>Selecteer de <strong>bovenste omtrekrand</strong> van de plaat en pas <strong>Chamfer 0,6 mm</strong> toe (H10). Controleer je selectie vóór je bevestigt.<span class="waarom">Waarom: design — de schuine rand vangt licht en maakt de tag "af". Print — scherpe bovenranden rafelen sneller; een afkanting verbergt dat. Extraatje: 0,3 mm op de ónderrand vangt de olifantsvoet op (H16).</span></li>
+</ol>
+
+<h2><span class="section-num">04</span>Deel 3 — De WLD-letters</h2>
+<p>Net als bij de Yagi maken we het reliëf <strong>buiten</strong> de Body: apart object = eigen kleur = apart exporteerbaar.</p>
+<ol class="stappenplan">
+  <li><span class="wb">DR</span><strong>Draft</strong> → <strong>ShapeString</strong>: tekst <strong>WLD</strong>, grootte <strong>15</strong>, vet lettertype (bv. <span class="path">C:\Windows\Fonts\arialbd.ttf</span>).</li>
+  <li><span class="wb">DR</span>Zet de <strong>Placement</strong> op <strong>Z = 3,2</strong> zodat de tekst bóvenop de plaat ligt, en positioneer in het bovenaanzicht: startpunt <strong>x ≈ 17, y ≈ −2</strong>. Controleer de marges: rechts van de D minstens ±5 mm tot de rand, bovenaan minstens ±3 mm vrij, en <strong>blijf uit de hoekafronding</strong>.<span class="waarom">Waarom die marges: dit is een geleerde les — een eerdere versie met grotere letters zag er in het vlak prima uit, maar de D liep tegen de hoekafronding aan en de letters plakten tegen de bovenrand. De gebogen hoek eet je rechtermarge sneller op dan je denkt: meet t.o.v. de échte rand, niet de omschreven rechthoek.</span></li>
+  <li><span class="wb">PT</span><strong>Part</strong> → <strong>Extruderen</strong>: Z, <strong>1,8 mm</strong>, massief. Verberg de ShapeString.<span class="waarom">Waarom mag de extrusie hier wél op 3,2 mm beginnen (en bij de Yagi niet): deze plaat is massief — élk punt van de letters rust volledig op de plaat. De kleurgrens ligt vanzelf exact op Z = 3,2.</span></li>
+</ol>
+
+<div class="figure">
+  <img src="assets/img/projecten/morsetag-layout.png" alt="Bovenaanzicht van de tag met letters en morse-rij, met marges" loading="lazy">
+  <div class="figcaption"><span class="fignum">Fig. P2.2</span>De geverifieerde layout: letters vrij van bovenrand en hoekafronding, morse-rij gecentreerd op y = −7,2.</div>
+</div>
+
+<h2><span class="section-num">05</span>Deel 4 — De morse-rij</h2>
+<ol class="stappenplan">
+  <li><span class="wb">SK</span>Maak een losse schets op het XY-vlak (buiten de Body; lukt dat niet direct, maak ze en sleep ze in de modelboom uit de Body). Zet de <strong>Placement op Z = 3,2</strong>.</li>
+  <li><span class="wb">SK</span>Teken de rij van links naar rechts: punten als <strong>cirkels</strong> (Ø1,8), strepen als <strong>sleuven</strong> (slot-gereedschap: twee halve cirkels verbonden door rechten) van 4,2 × 1,8. Alle middelpunten op <strong>y = −7,2</strong>. Volgorde: <strong>·−− (W) · 3,5 mm · ·−·· (L) · 3,5 mm · −·· (D)</strong>, met 1,2 mm tussen de symbolen.<span class="waarom">Waarom "gelijk maken" hier extra loont: tien symbolen los bematen is vragen om fouten. Bemaat één punt en één streep volledig en maak de rest gelijk — dikkere punten wijzigen wordt dan één maat aanpassen. Zelfde denkwijze als bij de vijf Yagi-elementen.</span></li>
+  <li><span class="wb">SK</span>Volledig bepalen, sluiten.</li>
+  <li><span class="wb">PT</span><strong>Part</strong> → <strong>Extruderen</strong>: <strong>1,8 mm</strong>, massief.</li>
+  <li><span class="wb">PT</span>Netjes (optioneel): selecteer letterobject + morse-object → <strong>Part → Boolean → Vereniging</strong> tot één object "Opdruk".</li>
+</ol>
+
+<h2><span class="section-num">06</span>Deel 5 — Kleuren en eindcontrole</h2>
+<ol class="stappenplan">
+  <li><span class="wb">PD</span>Kleur de <strong>plaat navy</strong> en de <strong>opdruk amber</strong> (rechtsklik → uiterlijk/kleur).</li>
+  <li><span class="wb">PD</span>Eindcontrole in het 3D-zicht: opdruk overal óp de plaat (niets zweeft of steekt onderaan door), marges rondom de letters, gat open, afkanting langs de hele bovenrand, morse correct: <strong>·−− ·−·· −··</strong>.</li>
+</ol>
+
+<h2><span class="section-num">07</span>Naar de printer</h2>
+<div class="callout callout-tip">
+  <div class="callout-header">🖨️ <span data-i18n="print_title">Voor de print</span></div>
+  <p>Plat printen, geen support, geen brim nodig (grote vlakke onderzijde). <strong>Eén extruder:</strong> beide objecten samen als STL + <strong>kleurwissel op Z = 3,2 mm</strong>. <strong>Multi-material:</strong> plaat en opdruk als aparte STL's (H23). Richtwaarden: kalibreer op je eigen printer.</p>
+</div>
+
+<h2><span class="section-num">08</span><span data-i18n="mistakes_title">Veelgemaakte fouten</span></h2>
+<ul>
+  <li><strong>Letters te groot of te hoog</strong> → ze lopen de hoekafronding of de rand in. Marges checken in het bovenaanzicht vóór je extrudeert.</li>
+  <li><strong>Morse-schets op Z = 0 laten staan</strong> → de rij zit ín de plaat verstopt. Placement op Z = 3,2 zetten (achteraf corrigeren kan ook — zo leer je Placement kennen).</li>
+  <li><strong>Symbolen los bemaat i.p.v. gelijk gemaakt</strong> → werkt, tot je iets wijzigt. Gelijkheidsconstraints (H08).</li>
+  <li><strong>Verkeerde rand bij de Chamfer</strong> → afkanting op een zijkant of het gat. Fout? Verwijder de Chamfer-feature uit de boom en doe het opnieuw (H22).</li>
+  <li><strong>Morse fout overgenomen</strong> → pijnlijk voor een radioamateur. Dubbelcheck: ·−− ·−·· −··.</li>
+</ul>
+
+<div class="callout callout-key memory-box">
+  <div class="callout-header">🧠 <span data-i18n="memory_title">Onthoud dit</span></div>
+  <ul>
+    <li>Massieve plaat → reliëf mag <strong>bovenop</strong> beginnen; open basis (Yagi) → reliëf <strong>vanaf de bouwplaat</strong>.</li>
+    <li>Hoekafrondingen <strong>eten je marge op</strong>: meet t.o.v. de echte rand.</li>
+    <li>Wat in de <strong>schets</strong> kan (afronding!), doe je in de schets — robuuster dan 3D-features.</li>
+    <li>Eén referentiesymbool + <strong>gelijkheidsconstraints</strong> = de hele morse-rij in één maat aanpasbaar.</li>
+  </ul>
+</div>
+
+<div class="doe-opdracht">
+  <div class="do-head">🛠️ Uitbreidingsopdrachten</div>
+  <p><strong>1.</strong> Zet je <strong>eigen roepletters</strong> erop, mét de juiste morse. Past de rij niet? Kies zelf: symboolgrootte, tussenruimte of plaatbreedte — en beargumenteer je keuze. <strong>2.</strong> Verzonken tekst op de achterkant (clubnaam): ShapeString + Pocket i.p.v. reliëf — wat verandert er aan het printverhaal (H17)? <strong>3.</strong> Tweede gat rechts, zodat de tag als naamplaatje aan een tas kan.</p>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-header">⬇️ Downloads</div>
+  <p>Kant-en-klare parametrische macro (ook je eigen call + morse via parameters!) en de printinstructie: <a href="downloads/WLD_morse_tag.FCMacro" download>WLD_morse_tag.FCMacro</a> · <a href="downloads/WLD_printinstructie.md" download>Printinstructie</a></p>
+</div>
+
+<div class="chapter-nav-footer"><a class="ch-nav-btn" href="project-yagi-sleutelhanger.html">← Project: Yagi-sleutelhanger</a><a class="ch-nav-btn" href="index.html"><span data-i18n="overview">Overzicht</span></a></div>
+
+</div></div></main>
+<footer class="app-footer"><div class="footer-logo-row"><span class="footer-wld">WLD</span><div class="footer-sep"></div><div class="footer-info">ON6WL · Waaslandse Radio Amateurs · <a href="https://on6wl.be">on6wl.be</a></div></div><div class="footer-right">FreeCAD-cursus · 1.1.1 · <a href="bronnen.html">Bronnen</a></div></footer>
+<script src="assets/js/app.js"></script><script src="assets/js/sidebar.js"></script>
+<script>document.addEventListener('DOMContentLoaded',()=>{ renderSidebar('p02'); });</script>
+</body></html>
